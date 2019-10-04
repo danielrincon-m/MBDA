@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!DOCTYPE detalle[
+	<!ELEMENT detalle (Datos*)>
+	<!ELEMENT Datos (Permiso?, Proteccion, Especie?, Descripcion?)>
+	<!ELEMENT Permiso (#PCDATA)>
+	<!ELEMENT Proteccion (#PCDATA)>
+	<!ELEMENT Especie (Caracteristicas*)>
+	<!ELEMENT Caracteristicas (#PCDATA)>
+	<!ELEMENT Descripcion (#PCDATA)>
+]>
+<detalle>
+	<Datos>
+		<Permiso></Permiso>
+		<Proteccion></Proteccion>
+		<Especie>
+			<Caracteristicas>Leon</Caracteristicas>
+			<Caracteristicas>LEON FELINUS</Caracteristicas>
+			<Caracteristicas>Es especie endémica</Caracteristicas>
+			<Caracteristicas>En vias de extinción</Caracteristicas>
+		</Especie>
+		<Descripcion>Esta es la reserva Valhalla</Descripcion>
+	</Datos>
+</detalle>

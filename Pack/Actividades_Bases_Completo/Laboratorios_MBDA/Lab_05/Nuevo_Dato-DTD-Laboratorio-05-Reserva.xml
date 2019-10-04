@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE Info[
+	<!ELEMENT Info (Informacion)>
+	<!ELEMENT Informacion (Terreno, Ingreso, Seguridad)>
+	<!ELEMENT Terreno (#PCDATA)>
+	<!ELEMENT Ingreso (#PCDATA)>
+	<!ELEMENT Seguridad (#PCDATA)>
+	
+	<!ATTLIST Informacion capital_departamento CDATA #REQUIRED>
+	<!ATTLIST Informacion area_departamento CDATA #REQUIRED>
+	<!ATTLIST Informacion poblacion_departamento CDATA #REQUIRED>
+	
+
+]>
+
+
+
+<Info>
+	<Informacion capital_departamento = "Frenezi Capital" area_departamento = "45169641 hectareas" poblacion_departamento = "5416361">
+		<Terreno>Altiplano</Terreno>
+		<Ingreso>Alto</Ingreso>
+		<Seguridad>Alta</Seguridad>
+	</Informacion>
+</Info>

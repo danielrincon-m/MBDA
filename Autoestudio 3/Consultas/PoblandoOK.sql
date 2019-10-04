@@ -1,0 +1,203 @@
+--table place
+INSERT INTO place (place_no,place_town,place_country) VALUES ('1','Manchester','England');
+INSERT INTO place (place_no,place_town,place_country) VALUES ('2','Edinburgh','Scotland');
+INSERT INTO place (place_no,place_town,place_country) VALUES ('3','Salzburg','Austria');
+INSERT INTO place (place_no,place_town,place_country) VALUES ('4','New York','USA');
+INSERT INTO place (place_no,place_town,place_country) VALUES ('5','Birmingham','England');
+INSERT INTO place (place_no,place_town,place_country) VALUES ('6','Glasgow','Scotland');
+INSERT INTO place (place_no,place_town,place_country) VALUES ('7','London','England');
+INSERT INTO place (place_no,place_town,place_country) VALUES ('8','Chicago','USA');
+INSERT INTO place (place_no,place_town,place_country) VALUES ('9','Amsterdam','Netherlands');
+
+--table musician
+INSERT INTO musician (m_no,m_name,born,died,born_in,living_in) VALUES ('1','Fred Bloggs','2/01/1948','','1','2');
+INSERT INTO musician (m_no,m_name,born,died,born_in,living_in) VALUES ('2','John Smith','3/03/1950','','3','4');
+INSERT INTO musician (m_no,m_name,born,died,born_in,living_in) VALUES ('3','Helen Smyth','8/08/1948','','4','5');
+INSERT INTO musician (m_no,m_name,born,died,born_in,living_in) VALUES ('4','Harriet Smithson','9/05/1909','20/09/1980','5','6');
+INSERT INTO musician (m_no,m_name,born,died,born_in,living_in) VALUES ('5','James First','10/06/1965','','7','7');
+INSERT INTO musician (m_no,m_name,born,died,born_in,living_in) VALUES ('6','Theo Mengel','12/08/1948','','7','1');
+INSERT INTO musician (m_no,m_name,born,died,born_in,living_in) VALUES ('7','Sue Little','21/02/1945','','8','9');
+INSERT INTO musician (m_no,m_name,born,died,born_in,living_in) VALUES ('8','Harry Forte','28/02/1951','','1','8');
+INSERT INTO musician (m_no,m_name,born,died,born_in,living_in) VALUES ('9','Phil Hot','30/06/1942','','2','7');
+INSERT INTO musician (m_no,m_name,born,died,born_in,living_in) VALUES ('10','Jeff Dawn','12/12/1945','','3','6');
+INSERT INTO musician (m_no,m_name,born,died,born_in,living_in) VALUES ('11','Rose Spring','25/05/1948','','4','5');
+INSERT INTO musician (m_no,m_name,born,died,born_in,living_in) VALUES ('12','Davis Heavan','3/10/1975','','5','4');
+INSERT INTO musician (m_no,m_name,born,died,born_in,living_in) VALUES ('13','Lovely Time','28/12/1948','','6','3');
+INSERT INTO musician (m_no,m_name,born,died,born_in,living_in) VALUES ('14','Alan Fluff','15/01/1935','15/05/1997','7','2');
+INSERT INTO musician (m_no,m_name,born,died,born_in,living_in) VALUES ('15','Tony Smythe','2/04/1932','','8','1');
+INSERT INTO musician (m_no,m_name,born,died,born_in,living_in) VALUES ('16','James Quick','8/08/1924','','9','2');
+INSERT INTO musician (m_no,m_name,born,died,born_in,living_in) VALUES ('17','Freda Miles','4/07/1920','','9','3');
+INSERT INTO musician (m_no,m_name,born,died,born_in,living_in) VALUES ('18','Elsie James','6/05/1947','','8','5');
+INSERT INTO musician (m_no,m_name,born,died,born_in,living_in) VALUES ('19','Andy Jones','8/10/1958','','7','6');
+INSERT INTO musician (m_no,m_name,born,died,born_in,living_in) VALUES ('20','Louise Simpson','10/01/1948','11/02/1998','6','6');
+INSERT INTO musician (m_no,m_name,born,died,born_in,living_in) VALUES ('21','James Steeple','10/01/1947','','5','6');
+INSERT INTO musician (m_no,m_name,born,died,born_in,living_in) VALUES ('22','Steven Chaytors','11/03/1956','','6','7');
+
+--table performer
+INSERT INTO performer (perf_no,perf_is,instrument,perf_type) VALUES ('1','2','violin','classical');
+INSERT INTO performer (perf_no,perf_is,instrument,perf_type) VALUES ('2','4','viola','classical');
+INSERT INTO performer (perf_no,perf_is,instrument,perf_type) VALUES ('3','6','banjo','jazz');
+INSERT INTO performer (perf_no,perf_is,instrument,perf_type) VALUES ('4','8','violin','classical');
+INSERT INTO performer (perf_no,perf_is,instrument,perf_type) VALUES ('5','12','guitar','jazz');
+INSERT INTO performer (perf_no,perf_is,instrument,perf_type) VALUES ('6','14','violin','classical');
+INSERT INTO performer (perf_no,perf_is,instrument,perf_type) VALUES ('7','16','trumpet','jazz');
+INSERT INTO performer (perf_no,perf_is,instrument,perf_type) VALUES ('8','18','viola','classical');
+INSERT INTO performer (perf_no,perf_is,instrument,perf_type) VALUES ('9','20','bass','jazz');
+INSERT INTO performer (perf_no,perf_is,instrument,perf_type) VALUES ('10','2','flute','jazz');
+INSERT INTO performer (perf_no,perf_is,instrument,perf_type) VALUES ('11','20','cornet','jazz');
+INSERT INTO performer (perf_no,perf_is,instrument,perf_type) VALUES ('12','6','violin','jazz');
+INSERT INTO performer (perf_no,perf_is,instrument,perf_type) VALUES ('13','8','drums','jazz');
+INSERT INTO performer (perf_no,perf_is,instrument,perf_type) VALUES ('14','10','violin','classical');
+INSERT INTO performer (perf_no,perf_is,instrument,perf_type) VALUES ('15','12','cello','classical');
+INSERT INTO performer (perf_no,perf_is,instrument,perf_type) VALUES ('16','14','viola','classical');
+INSERT INTO performer (perf_no,perf_is,instrument,perf_type) VALUES ('17','16','flute','jazz');
+INSERT INTO performer (perf_no,perf_is,instrument,perf_type) VALUES ('18','18','guitar','not known');
+INSERT INTO performer (perf_no,perf_is,instrument,perf_type) VALUES ('19','20','trombone','jazz');
+INSERT INTO performer (perf_no,perf_is,instrument,perf_type) VALUES ('20','3','horn','jazz');
+INSERT INTO performer (perf_no,perf_is,instrument,perf_type) VALUES ('21','5','violin','jazz');
+INSERT INTO performer (perf_no,perf_is,instrument,perf_type) VALUES ('22','7','cello','classical');
+INSERT INTO performer (perf_no,perf_is,instrument,perf_type) VALUES ('23','2','bass','jazz');
+INSERT INTO performer (perf_no,perf_is,instrument,perf_type) VALUES ('24','4','violin','jazz');
+INSERT INTO performer (perf_no,perf_is,instrument,perf_type) VALUES ('25','6','drums','classical');
+INSERT INTO performer (perf_no,perf_is,instrument,perf_type) VALUES ('26','8','clarinet','jazz');
+INSERT INTO performer (perf_no,perf_is,instrument,perf_type) VALUES ('27','10','bass','jazz');
+INSERT INTO performer (perf_no,perf_is,instrument,perf_type) VALUES ('28','12','viola','classical');
+INSERT INTO performer (perf_no,perf_is,instrument,perf_type) VALUES ('29','18','cello','classical');
+
+--table composer
+INSERT INTO composer (comp_no,comp_is,comp_type) VALUES ('1','1','jazz');
+INSERT INTO composer (comp_no,comp_is,comp_type) VALUES ('2','3','classical');
+INSERT INTO composer (comp_no,comp_is,comp_type) VALUES ('3','5','jazz');
+INSERT INTO composer (comp_no,comp_is,comp_type) VALUES ('4','7','classical');
+INSERT INTO composer (comp_no,comp_is,comp_type) VALUES ('5','9','jazz');
+INSERT INTO composer (comp_no,comp_is,comp_type) VALUES ('6','11','rock');
+INSERT INTO composer (comp_no,comp_is,comp_type) VALUES ('7','13','classical');
+INSERT INTO composer (comp_no,comp_is,comp_type) VALUES ('8','15','jazz');
+INSERT INTO composer (comp_no,comp_is,comp_type) VALUES ('9','17','classical');
+INSERT INTO composer (comp_no,comp_is,comp_type) VALUES ('10','19','jazz');
+INSERT INTO composer (comp_no,comp_is,comp_type) VALUES ('11','10','rock');
+INSERT INTO composer (comp_no,comp_is,comp_type) VALUES ('12','8','jazz');
+
+--table band
+INSERT INTO band (band_no,band_name,band_home,band_type,b_date,band_contact) VALUES ('1','ROP','5','classical','1/01/1930','11');
+INSERT INTO band (band_no,band_name,band_home,band_type,b_date,band_contact) VALUES ('2','AASO','6','classical','','10');
+INSERT INTO band (band_no,band_name,band_home,band_type,b_date,band_contact) VALUES ('3','The J Bs','8','jazz','','12');
+INSERT INTO band (band_no,band_name,band_home,band_type,b_date,band_contact) VALUES ('4','BBSO','9','classical','','21');
+INSERT INTO band (band_no,band_name,band_home,band_type,b_date,band_contact) VALUES ('5','The left Overs','2','jazz','','8');
+INSERT INTO band (band_no,band_name,band_home,band_type,b_date,band_contact) VALUES ('6','Somebody Loves this','1','jazz','','6');
+INSERT INTO band (band_no,band_name,band_home,band_type,b_date,band_contact) VALUES ('7','Oh well','4','classical','','3');
+INSERT INTO band (band_no,band_name,band_home,band_type,b_date,band_contact) VALUES ('8','Swinging strings','4','classical','','7');
+INSERT INTO band (band_no,band_name,band_home,band_type,b_date,band_contact) VALUES ('9','The Rest','9','jazz','','16');
+
+--table concert
+INSERT INTO concert (concert_no,concert_venue,concert_in,con_date,concert_orgniser) VALUES ('1','Bridgewater Hall','1','6/01/1995','21');
+INSERT INTO concert (concert_no,concert_venue,concert_in,con_date,concert_orgniser) VALUES ('2','Bridgewater Hall','1','8/05/1996','3');
+INSERT INTO concert (concert_no,concert_venue,concert_in,con_date,concert_orgniser) VALUES ('3','Usher Hall','2','3/06/1995','3');
+INSERT INTO concert (concert_no,concert_venue,concert_in,con_date,concert_orgniser) VALUES ('4','Assembly Rooms','2','20/09/1997','21');
+INSERT INTO concert (concert_no,concert_venue,concert_in,con_date,concert_orgniser) VALUES ('5','Festspiel Haus','3','21/02/1995','8');
+INSERT INTO concert (concert_no,concert_venue,concert_in,con_date,concert_orgniser) VALUES ('6','Royal Albert Hall','7','12/04/1993','8');
+INSERT INTO concert (concert_no,concert_venue,concert_in,con_date,concert_orgniser) VALUES ('7','Concertgebouw','9','14/05/1993','8');
+INSERT INTO concert (concert_no,concert_venue,concert_in,con_date,concert_orgniser) VALUES ('8','Metropolitan','4','15/06/1997','21');
+
+--table composition
+INSERT INTO composition (c_no,comp_date,c_title,c_in) VALUES ('1','17/06/1975','Opus 1','1');
+INSERT INTO composition (c_no,comp_date,c_title,c_in) VALUES ('2','21/07/1976','Here Goes','2');
+INSERT INTO composition (c_no,comp_date,c_title,c_in) VALUES ('3','14/12/1981','Valiant Knight','3');
+INSERT INTO composition (c_no,comp_date,c_title,c_in) VALUES ('4','12/01/1982','Little Piece','4');
+INSERT INTO composition (c_no,comp_date,c_title,c_in) VALUES ('5','13/03/1985','Simple Song','5');
+INSERT INTO composition (c_no,comp_date,c_title,c_in) VALUES ('6','14/04/1986','Little Swing Song','6');
+INSERT INTO composition (c_no,comp_date,c_title,c_in) VALUES ('7','13/05/1987','Fast Journey','7');
+INSERT INTO composition (c_no,comp_date,c_title,c_in) VALUES ('8','14/02/1976','Simple Love Song','8');
+INSERT INTO composition (c_no,comp_date,c_title,c_in) VALUES ('9','21/01/1982','Complex Rythms','9');
+INSERT INTO composition (c_no,comp_date,c_title,c_in) VALUES ('10','23/02/1985','Drumming Rythms','9');
+INSERT INTO composition (c_no,comp_date,c_title,c_in) VALUES ('11','18/03/1978','Fast Drumming','8');
+INSERT INTO composition (c_no,comp_date,c_title,c_in) VALUES ('12','13/08/1984','Slow Song','7');
+INSERT INTO composition (c_no,comp_date,c_title,c_in) VALUES ('13','14/09/1968','Blue Roses','6');
+INSERT INTO composition (c_no,comp_date,c_title,c_in) VALUES ('14','15/11/1983','Velvet Rain','5');
+INSERT INTO composition (c_no,comp_date,c_title,c_in) VALUES ('15','16/05/1982','Cold Wind','4');
+INSERT INTO composition (c_no,comp_date,c_title,c_in) VALUES ('16','18/06/1983','After the Wind Blows','3');
+INSERT INTO composition (c_no,comp_date,c_title,c_in) VALUES ('17','','A Simple Piece','2');
+INSERT INTO composition (c_no,comp_date,c_title,c_in) VALUES ('18','12/01/1985','Long Rythms','1');
+INSERT INTO composition (c_no,comp_date,c_title,c_in) VALUES ('19','12/02/1988','Eastern Wind','1');
+INSERT INTO composition (c_no,comp_date,c_title,c_in) VALUES ('20','','Slow Symphony Blowing','2');
+INSERT INTO composition (c_no,comp_date,c_title,c_in) VALUES ('21','12/07/1990','A Last Song','6');
+
+--table plays_in
+INSERT INTO plays_in (player,band_id) VALUES ('1','1');
+INSERT INTO plays_in (player,band_id) VALUES ('1','7');
+INSERT INTO plays_in (player,band_id) VALUES ('3','1');
+INSERT INTO plays_in (player,band_id) VALUES ('4','1');
+INSERT INTO plays_in (player,band_id) VALUES ('4','7');
+INSERT INTO plays_in (player,band_id) VALUES ('5','1');
+INSERT INTO plays_in (player,band_id) VALUES ('6','1');
+INSERT INTO plays_in (player,band_id) VALUES ('6','7');
+INSERT INTO plays_in (player,band_id) VALUES ('7','1');
+INSERT INTO plays_in (player,band_id) VALUES ('8','1');
+INSERT INTO plays_in (player,band_id) VALUES ('8','7');
+INSERT INTO plays_in (player,band_id) VALUES ('10','2');
+INSERT INTO plays_in (player,band_id) VALUES ('12','2');
+INSERT INTO plays_in (player,band_id) VALUES ('13','2');
+INSERT INTO plays_in (player,band_id) VALUES ('14','2');
+INSERT INTO plays_in (player,band_id) VALUES ('14','8');
+INSERT INTO plays_in (player,band_id) VALUES ('15','2');
+INSERT INTO plays_in (player,band_id) VALUES ('15','8');
+INSERT INTO plays_in (player,band_id) VALUES ('17','2');
+INSERT INTO plays_in (player,band_id) VALUES ('18','2');
+INSERT INTO plays_in (player,band_id) VALUES ('19','3');
+INSERT INTO plays_in (player,band_id) VALUES ('20','3');
+INSERT INTO plays_in (player,band_id) VALUES ('21','4');
+INSERT INTO plays_in (player,band_id) VALUES ('22','4');
+INSERT INTO plays_in (player,band_id) VALUES ('23','4');
+INSERT INTO plays_in (player,band_id) VALUES ('25','5');
+INSERT INTO plays_in (player,band_id) VALUES ('26','6');
+INSERT INTO plays_in (player,band_id) VALUES ('27','6');
+INSERT INTO plays_in (player,band_id) VALUES ('28','7');
+INSERT INTO plays_in (player,band_id) VALUES ('28','8');
+INSERT INTO plays_in (player,band_id) VALUES ('29','7');
+
+--table has_composed
+INSERT INTO has_composed (cmpr_no,cmpn_no) VALUES ('1','1');
+INSERT INTO has_composed (cmpr_no,cmpn_no) VALUES ('1','8');
+INSERT INTO has_composed (cmpr_no,cmpn_no) VALUES ('2','11');
+INSERT INTO has_composed (cmpr_no,cmpn_no) VALUES ('3','2');
+INSERT INTO has_composed (cmpr_no,cmpn_no) VALUES ('3','13');
+INSERT INTO has_composed (cmpr_no,cmpn_no) VALUES ('3','14');
+INSERT INTO has_composed (cmpr_no,cmpn_no) VALUES ('3','18');
+INSERT INTO has_composed (cmpr_no,cmpn_no) VALUES ('4','12');
+INSERT INTO has_composed (cmpr_no,cmpn_no) VALUES ('4','20');
+INSERT INTO has_composed (cmpr_no,cmpn_no) VALUES ('5','3');
+INSERT INTO has_composed (cmpr_no,cmpn_no) VALUES ('5','13');
+INSERT INTO has_composed (cmpr_no,cmpn_no) VALUES ('5','14');
+INSERT INTO has_composed (cmpr_no,cmpn_no) VALUES ('6','15');
+INSERT INTO has_composed (cmpr_no,cmpn_no) VALUES ('6','21');
+INSERT INTO has_composed (cmpr_no,cmpn_no) VALUES ('7','4');
+INSERT INTO has_composed (cmpr_no,cmpn_no) VALUES ('7','9');
+INSERT INTO has_composed (cmpr_no,cmpn_no) VALUES ('8','16');
+INSERT INTO has_composed (cmpr_no,cmpn_no) VALUES ('9','5');
+INSERT INTO has_composed (cmpr_no,cmpn_no) VALUES ('9','10');
+INSERT INTO has_composed (cmpr_no,cmpn_no) VALUES ('10','17');
+INSERT INTO has_composed (cmpr_no,cmpn_no) VALUES ('11','6');
+INSERT INTO has_composed (cmpr_no,cmpn_no) VALUES ('12','7');
+INSERT INTO has_composed (cmpr_no,cmpn_no) VALUES ('12','19');
+
+--table performance
+INSERT INTO performance (pfrmnc_no,gave,performed,conducted_by,performed_in) VALUES ('1','1','1','21','1');
+INSERT INTO performance (pfrmnc_no,gave,performed,conducted_by,performed_in) VALUES ('2','1','3','21','1');
+INSERT INTO performance (pfrmnc_no,gave,performed,conducted_by,performed_in) VALUES ('3','1','5','21','1');
+INSERT INTO performance (pfrmnc_no,gave,performed,conducted_by,performed_in) VALUES ('4','1','2','1','2');
+INSERT INTO performance (pfrmnc_no,gave,performed,conducted_by,performed_in) VALUES ('5','2','4','21','2');
+INSERT INTO performance (pfrmnc_no,gave,performed,conducted_by,performed_in) VALUES ('6','2','6','21','2');
+INSERT INTO performance (pfrmnc_no,gave,performed,conducted_by,performed_in) VALUES ('7','4','19','9','3');
+INSERT INTO performance (pfrmnc_no,gave,performed,conducted_by,performed_in) VALUES ('8','4','20','10','3');
+INSERT INTO performance (pfrmnc_no,gave,performed,conducted_by,performed_in) VALUES ('9','5','12','10','4');
+INSERT INTO performance (pfrmnc_no,gave,performed,conducted_by,performed_in) VALUES ('10','5','13','11','4');
+INSERT INTO performance (pfrmnc_no,gave,performed,conducted_by,performed_in) VALUES ('11','3','5','13','5');
+INSERT INTO performance (pfrmnc_no,gave,performed,conducted_by,performed_in) VALUES ('12','3','6','13','5');
+INSERT INTO performance (pfrmnc_no,gave,performed,conducted_by,performed_in) VALUES ('13','3','7','13','5');
+INSERT INTO performance (pfrmnc_no,gave,performed,conducted_by,performed_in) VALUES ('14','6','20','14','6');
+INSERT INTO performance (pfrmnc_no,gave,performed,conducted_by,performed_in) VALUES ('15','8','12','15','7');
+INSERT INTO performance (pfrmnc_no,gave,performed,conducted_by,performed_in) VALUES ('16','9','16','21','8');
+INSERT INTO performance (pfrmnc_no,gave,performed,conducted_by,performed_in) VALUES ('17','9','17','21','8');
+INSERT INTO performance (pfrmnc_no,gave,performed,conducted_by,performed_in) VALUES ('18','9','18','21','8');
+INSERT INTO performance (pfrmnc_no,gave,performed,conducted_by,performed_in) VALUES ('19','9','19','21','8');
+INSERT INTO performance (pfrmnc_no,gave,performed,conducted_by,performed_in) VALUES ('20','4','12','10','3');

@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<!DOCTYPE descripcion[
+  <!ELEMENT descripcion (colores+,variacion*,tradicional?)
+  <!ELEMENT colores (#PCDATA)>
+  <!ELEMENT variacion (sabor,color,agregados*)>
+  <!ELEMENT tradicional (elementos*)>
+  <!ELEMENT sabor (#PCDATA)>
+  <!ELEMENT color (#PCDATA)>
+  <!ELEMENT agregados (#PCDATA)>
+  <!ELEMENT elementos (#PCDATA)>
+
+  <!ATTLIST tradicional metodo CDATA #REQUIRED>
+]> 

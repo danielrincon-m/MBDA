@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!DOCTYPE descripcion[
+	<!ELEMENT descripcion (Datos_Basicos*)>
+	<!ELEMENT Datos_Basicosvehiculo (Recorrido, Especificaciones, Seguridad, Datos_Venta?, Otra_Informacion?)>
+	<!ELEMENT Recorrido EMPTY>
+	<!ELEMENT Especificaciones EMPTY>
+	<!ELEMENT Seguridad (accesorio*)>
+	<!ELEMENT accesorio (#PCDATA)>
+	<!ELEMENT Datos_Venta EMPTY>
+	<!ELEMENT Otra_Informacion (#PCDATA)>
+	
+	<!ATTLIST Datos_Basicos modelo ID #REQUIRED>
+	<!ATTLIST Datos_Basicos anho CDATA #REQUIRED>
+	<!ATTLIST Datos_Basicos color CDATA #REQUIRED>
+
+	<!ATTLIST Recorrido Kilometraje CDATA #REQUIRED>
+	<!ATTLIST Recorrido Fecha CDATA #REQUIRED>
+
+	<!ATTLIST Especificaciones Tipo_Direccion CDATA #REQUIRED>
+	<!ATTLIST Especificaciones Tipo_Frenos CDATA #REQUIRED>
+	<!ATTLIST Especificaciones Cantidad_Cambios CDATA #REQUIRED>
+	<!ATTLIST Especificaciones Rin_Size CDATA #REQUIRED>
+	<!ATTLIST Datos_Venta valor CDATA #REQUIRED>
+	<!ATTLIST Datos_Venta nombre CDATA #REQUIRED>
+	<!ATTLIST Datos_Venta telefono CDATA #REQUIRED>
+]>

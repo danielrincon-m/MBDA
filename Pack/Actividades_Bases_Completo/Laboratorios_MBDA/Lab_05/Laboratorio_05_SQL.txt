@@ -1,0 +1,812 @@
+--***************************************
+--Tablas
+--***************************************
+create table departamentos (identificador char(3), nombre varchar(25), extra XMLTYPE);
+
+create table unidades (numero number(2), departamento char(3), nombre varchar(30));
+
+create table reservas (nombre varchar(10), fecha date, estado char(1), detalle XMLTYPE);
+
+create table ubicadaen (unidadnum number(2), unidaddpto char(3), reserva varchar(10), porcentaje number(3));
+
+create table fotos (numero number(2), reserva varchar(10), url varchar(50), autor varchar(50));
+
+create table ciudadanos (cedula number(15), nombre varchar(50), correo varchar(50), unidadnum number(2), unidaddpto char(3));
+
+create table funcionarios (cedula number(15), vinculacion date);
+
+create table esconocidapor (reserva varchar(10), funcionario number(15));
+
+create table colaboraciones (numero number(5), fecha date, descripcion varchar(100), estado char(1), sintesis varchar(50), fechaCierre date, reserva varchar(10), realiza number(15), estestigo number(15), funcionario number(15));
+
+
+--***************************************
+--XML Ok
+--***************************************
+--TABLE reserva
+Contiene la información de los permisos y protecciones otorgadas y de las diferentes especies que la habitan.
+Permisos y protecciones
+--------------------------------------
+Los permisos y protecciones se seleccionan de un catalogo construído a partir de las leyes sobre reservas naturales; por ejemplo, apto para urbanizar o protegido por diversidad. Debe incluir mínimo una protección.
+Especie
+------------
+De cada especie se debe indicar su nombre, nombre científico (si existe), si es una especie endémica y si está en vias de extinción.
+Se desea tener separadas las especies de flora y de fauna.
+
+
+insert into reservas values ('Valhalla', sysdate, 'E', 
+'<?xml version="1.0"?>
+<detalle>
+	<Datos>
+		<Permiso></Permiso>
+		<Proteccion></Proteccion>
+		<Especie>
+			<Caracteristicas>Leon</Caracteristicas>
+			<Caracteristicas>LEON FELINUS</Caracteristicas>
+			<Caracteristicas>Es especie endémica</Caracteristicas>
+			<Caracteristicas>En vias de extinción</Caracteristicas>
+		</Especie>
+		<Descripcion>Esta es la reserva Valhalla</Descripcion>
+	</Datos>
+
+</detalle>'
+);
+
+insert into reservas values ('Asgard', sysdate, 'E', 
+'<?xml version="1.0"?>
+<detalle>
+	<Datos>
+		<Permiso></Permiso>
+		<Proteccion></Proteccion>
+		<Especie>
+			<Caracteristicas>Leopardo</Caracteristicas>
+			<Caracteristicas>LEOPARDO FELINUS</Caracteristicas>
+			<Caracteristicas>Es especie endémica</Caracteristicas>
+			<Caracteristicas>En vias de extinción</Caracteristicas>	
+		</Especie>
+		<Descripcion>Esta es la reserva Asgard</Descripcion>
+	</Datos>
+</detalle>'
+);
+
+insert into reservas values ('Pedrera', sysdate, 'E', 
+'<?xml version="1.0"?>
+<detalle>
+	<Datos>
+		<Permiso></Permiso>
+		<Proteccion></Proteccion>
+		<Especie>
+			<Caracteristicas>Oso Anteojos</Caracteristicas>
+			<Caracteristicas>ANTEOJUS OSESNUS</Caracteristicas>
+			<Caracteristicas>Es especie endémica</Caracteristicas>
+			<Caracteristicas>En vias de extinción</Caracteristicas>	
+		</Especie>
+		<Descripcion>Esta es la reserva Pedrera</Descripcion>
+	</Datos>
+</detalle>'
+);
+
+insert into reservas values ('Mirití Parana', sysdate, 'E', 
+'<?xml version="1.0"?>
+<detalle>
+	<Datos>
+		<Permiso></Permiso>
+		<Proteccion></Proteccion>
+		<Especie>
+			<Caracteristicas>Nutria</Caracteristicas>
+			<Caracteristicas>NUTRIUS RIVEROUS</Caracteristicas>
+			<Caracteristicas>Es especie endémica</Caracteristicas>
+			<Caracteristicas>En vias de extinción</Caracteristicas>	
+		</Especie>
+		<Descripcion>Esta es la reserva Mirití Parana</Descripcion>
+	</Datos>
+</detalle>'
+);
+
+insert into reservas values ('Chorrera', sysdate, 'E', 
+'<?xml version="1.0"?>
+<detalle>
+	<Datos>
+		<Permiso></Permiso>
+		<Proteccion></Proteccion>
+		<Especie>
+			<Caracteristicas>Tigrillo</Caracteristicas>
+			<Caracteristicas>TIGRILLUS FELINUS</Caracteristicas>
+			<Caracteristicas>Es especie endémica</Caracteristicas>
+			<Caracteristicas>En vias de extinción</Caracteristicas>	
+		</Especie>
+		<Descripcion>Esta es la reserva Chorrera</Descripcion>
+	</Datos>
+</detalle>'
+);
+
+insert into reservas values ('Alegria', sysdate, 'E', 
+'<?xml version="1.0"?>
+<detalle>
+	<Datos>
+		<Permiso></Permiso>
+		<Proteccion></Proteccion>
+		<Especie>
+			<Caracteristicas>Puma</Caracteristicas>
+			<Caracteristicas>PUMUS FELINUS</Caracteristicas>
+			<Caracteristicas>Es especie endémica</Caracteristicas>
+			<Caracteristicas>En vias de extinción</Caracteristicas>	
+		</Especie>
+		<Descripcion>Esta es la reserva Alegria</Descripcion>
+	</Datos>
+</detalle>'
+);
+
+insert into reservas values ('Arica', sysdate, 'E', 
+'<?xml version="1.0"?>
+<detalle>
+	<Datos>
+		<Permiso></Permiso>
+		<Proteccion></Proteccion>
+		<Especie>
+			<Caracteristicas>Mariposa Naranja</Caracteristicas>
+			<Caracteristicas>MARIPUS NARANJIS</Caracteristicas>
+			<Caracteristicas>Es especie endémica</Caracteristicas>
+			<Caracteristicas>En vias de extinción</Caracteristicas>	
+		</Especie>
+		<Descripcion>Esta es la reserva Arica</Descripcion>
+	</Datos>
+</detalle>'
+);
+
+--***************************************
+--XML No_Ok
+--***************************************
+insert into reservas values ('Valhalla', sysdate, 'E', 
+'
+<detalle>
+	<Datos>
+		<Permiso></Permiso>
+		<Proteccion></Proteccion>
+		<Especie>
+			<Caracteristicas>Leon</Caracteristicas>
+			<Caracteristicas>LEON FELINUS</Caracteristicas>
+			<Caracteristicas>Es especie endémica</Caracteristicas>
+			<Caracteristicas>En vias de extinción</Caracteristicas>
+		</Especie>
+		<Descripcion>Esta es la reserva Valhalla</Descripcion>
+	</Datos>
+
+</detalle>'
+);
+
+insert into reservas values ('Asgard', sysdate, 'E', 
+'<?xml version="1.0"?>
+<detalle>
+	
+		<Permiso></Permiso>
+		<Proteccion></Proteccion>
+		<Especie>
+			<Caracteristicas>Leopardo</Caracteristicas>
+			<Caracteristicas>LEOPARDO FELINUS</Caracteristicas>
+			<Caracteristicas>Es especie endémica</Caracteristicas>
+			<Caracteristicas>En vias de extinción</Caracteristicas>	
+		
+		<Descripcion>Esta es la reserva Asgard</Descripcion>
+	</Datos>
+</detalle>'
+);
+
+insert into reservas values ('Pedrera', sysdate, 'E', 
+
+<detalle>
+	<Datos>
+		<Permiso></Permiso>
+		<Proteccion></Proteccion>
+		<Especie>
+			<Caracteristicas>Oso Anteojos</Caracteristicas>
+			<Caracteristicas>ANTEOJUS OSESNUS</Caracteristicas>
+			<Caracteristicas>Es especie endémica</Caracteristicas>
+			<Caracteristicas>En vias de extinción</Caracteristicas>	
+		</Especie>
+		<Descripcion>Esta es la reserva Pedrera</Descripcion>
+	</Datos>
+</detalle>'
+);
+
+insert into reservas values ('Mirití Parana', sysdate, 'E', 
+'<?xml version="1.0"?>
+<detalle>
+	<Datos>
+		<Permiso></Permiso>
+		<Proteccion></Proteccion>
+		<Especie>
+			<Caracteristicas>Nutria</Caracteristicas>
+			<Caracteristicas>NUTRIUS RIVEROUS</Caracteristicas>
+			<Caracteristicas>Es especie endémica</Caracteristicas>
+			<Caracteristicas>En vias de extinción</Caracteristicas>	
+		</Especie>
+		<Descripcion>Esta es la reserva Mirití Parana</Descripcion>
+	</Datos>
+</detalle>
+);
+
+insert into reservas values ('Chorrera', sysdate, 'E', 
+'<?xml version="1.0"?>
+<detalle>
+	<Datos>
+		<Permiso></Permiso>
+		<Proteccion>
+		<Especie>
+			<Caracteristicas>Tigrillo</Caracteristicas>
+			<Caracteristicas>TIGRILLUS FELINUS</Caracteristicas>
+			<Caracteristicas>Es especie endémica</Caracteristicas>
+			<Caracteristicas>En vias de extinción</Caracteristicas>	
+		
+		<Descripcion>Esta es la reserva Chorrera</Descripcion>
+	</Datos>
+</detalle>'
+);
+
+insert into reservas values ('Alegria', sysdate, 'E', 
+'<?xml version="1.0"?>
+<detalle>
+	<Datos>
+		<Permiso></Permiso>
+		<Proteccion></Proteccion>
+
+		</Especie>
+		<Descripcion>Esta es la reserva Alegria</Descripcion>
+	</Datos>
+</detalle>'
+);
+
+insert into reservas values ('Arica', sysdate, 'E', 
+'<?xml version="1.0"?>
+<detalle>
+	<Datos>
+		<Permiso></Permiso>
+		<Proteccion></Proteccion>
+		<Especie>
+			<Caracteristicas>Mariposa Naranja</Caracteristicas>
+			<Caracteristicas>MARIPUS NARANJIS</Caracteristicas>
+			<Caracteristicas>Es especie endémica</Caracteristicas>
+			<Caracteristicas>En vias de extinción</Caracteristicas>	
+		</Especie>
+		<Descripcion>Esta es la reserva Arica</Descripcion>
+
+
+);
+
+--***************************************
+--Poblar Ok
+--***************************************
+
+insert into reservas values ('Puerto Santander', sysdate, 'E', 
+'<?xml version="1.0"?>
+<detalle>
+	<Datos>
+		<Permiso></Permiso>
+		<Proteccion></Proteccion>
+		<Especie>
+			<Caracteristicas>Lagartija Azuleja</Caracteristicas>
+			<Caracteristicas>LAGARTIJUS AZULUS</Caracteristicas>
+			<Caracteristicas>Es especie endémica</Caracteristicas>
+			<Caracteristicas>En vias de extinción</Caracteristicas>	
+		</Especie>
+		<Descripcion>Esta es la reserva Puerto Santander</Descripcion>
+	</Datos>
+</detalle>'
+);
+
+insert into reservas values ('Leticia', sysdate, 'E', 
+'<?xml version="1.0"?>
+<detalle>
+	<Datos>
+		<Permiso></Permiso>
+		<Proteccion></Proteccion>
+		<Especie>
+			<Caracteristicas>Pez Sirena</Caracteristicas>
+			<Caracteristicas>SIRENUS PECUS</Caracteristicas>
+			<Caracteristicas>Es especie endémica</Caracteristicas>
+			<Caracteristicas>En vias de extinción</Caracteristicas>	
+		</Especie>
+		<Descripcion>Esta es la reserva Leticia</Descripcion>
+	</Datos>
+</detalle>'
+);
+
+
+insert into reservas values ('Nariño', sysdate, 'E', 
+'<?xml version="1.0"?>
+<detalle>
+	<Datos>
+		<Permiso></Permiso>
+		<Proteccion></Proteccion>
+		<Especie>
+			<Caracteristicas>Hipopotamo</Caracteristicas>
+			<Caracteristicas>ESCOBARUS HIPOPOTAMUS</Caracteristicas>
+			<Caracteristicas>Es especie endémica</Caracteristicas>
+			<Caracteristicas>En vias de extinción</Caracteristicas>	
+		</Especie>
+		<Descripcion>Esta es la reserva Nariño</Descripcion>
+	</Datos>
+</detalle>'
+);
+
+insert into reservas values ('Santander', sysdate, 'E', 
+'<?xml version="1.0"?>
+<detalle>
+	<Datos>
+		<Permiso></Permiso>
+		<Proteccion></Proteccion>
+		<Especie>
+			<Caracteristicas>Caiman Amazonas</Caracteristicas>
+			<Caracteristicas>CAIMANUS AMAZONUS</Caracteristicas>
+			<Caracteristicas>Es especie endémica</Caracteristicas>
+			<Caracteristicas>En vias de extinción</Caracteristicas>	
+		</Especie>
+		<Descripcion>Esta es la reserva Santaner</Descripcion>
+	</Datos>
+
+</detalle>'
+);
+
+
+insert into unidades (numero, departamento, nombre) values (1, 'AMA', 'La Pedrera');
+
+insert into unidades (numero, departamento, nombre) values (2, 'AMA', 'Mirití-Paraná');
+
+insert into unidades (numero, departamento, nombre) values (7, 'SAN', 'Barrancabermeja');
+
+insert into unidades (numero, departamento, nombre) values (1, 'SAN', 'Bucaramanga');
+
+insert into unidades (numero, departamento, nombre) values (1, 'CUN', 'Bogotá DC');
+
+insert into unidades (numero, departamento, nombre) values (1, 'MAG', 'Santa Marta');
+
+insert into unidades (numero, departamento, nombre) values (1, 'SAP', 'San Andrés');
+
+
+insert into ciudadanos values (1018477265, 'Camilo Andrés Torres Torres', 'camandto@hotmail.com', 7, 'SAN');
+
+insert into ciudadanos values (1219657442, 'Ana María Gómez Jaimes', 'anmagoja0207@hotmail.com', 1, 'SAN');
+
+insert into ciudadanos values (28015747, 'Nancy María Torres Mier', 'camandto@hotmail.com', 1, 'MAG');
+
+insert into ciudadanos values (1019447221, 'María Fernanda Montoya Quiñonez', 'fernanda.montoya1002@yahoo.es', 1, 'CUN');
+
+insert into ciudadanos values (123456789, 'Luciana Castro Torres', 'lucisan@colsanitas.com.co', '1', 'CUN');
+
+
+insert into funcionarios values (1018477265, sysdate);
+
+insert into funcionarios values (1019447221, sysdate);
+
+insert into funcionarios values (123456789, sysdate);
+
+
+insert into ubicadaen values (1, 'AMA', 'Valhalla', 44);
+
+insert into ubicadaen values (2, 'AMA', 'Valhalla', 56);
+
+insert into ubicadaen values (1, 'AMA', 'Asgard', 100);
+
+--***************************************
+--Poblar No_OK
+--***************************************
+insert into reservas values ('Nombredereservalargo', sysdate, 'R', null);
+
+insert into reservas values ('xxxxxxxxxxxxxxxxxxxxxxxx', sysdate, 'R', null);
+
+insert into reservas values ('Santaner', sysdate, 'E', 
+'<?xml version="1.0"?>
+<detalle>
+Esta es la reserva Santaner
+);
+
+insert into reservas values ('Nariño', sysdate, 'E', 
+'<?xml version="1.0"?>
+
+Esta es la reserva Nariño
+</detalle>'
+);
+
+insert into reservas values ('Leticia', sysdate, 'E', 
+'<?xml version="1.0"?>
+<detalle>
+Esta es la reserva Leticia
+'
+);
+
+insert into reservas values ('Leticia', sysdate,12312, 'E', 
+'<?xml version="1.0"?>
+<detalle>
+Esta es la reserva Leticia
+'
+);
+
+insert into reservas values ('Arica',222222, sysdate, 'E', 
+'<?xml version="1.0"?>
+<detalle>
+Esta es la reserva Arica
+</detalle>'
+);
+
+insert into reservas values ('Chorrera', sysdate, 'E', 11212,
+'<?xml version="1.0"?>
+<detalle>
+Esta es la reserva Chorrera
+</detalle>'
+);
+
+insert into reservas values (, sysdate, 'E', 
+'<?xml version="1.0"?>
+<detalle>
+Esta es la reserva Puerto Santander
+</detalle>'
+);
+
+insert into reservas values (0000,'Pedrera', sysdate, 'E', 
+'<?xml version="1.0"?>
+<detalle>
+Esta es la reserva Pedrera
+</detalle>'
+);
+
+insert into reservas values ('Nombredereservalargo', sysdate, 'R', null);
+
+insert into departamentos values ('DEPTO', 'Ejemplo');
+
+insert into archivos values (123, 123, 'archivo');
+
+insert into archivos values (2, 123456, 'archivo2');
+
+insert into fotos values (3, 'Lilith', 'urlmala.com', 'Ana María');
+
+insert into departamentos values ('ABC', 'Zeta');
+
+--***************************************
+--3. Implemente la consulta definida para el Administrador: Consultar ubicación de las especies 
+--***************************************
+SELECT EXTRACTVALUE(DETALLE,'/detalle/Datos/Especie/Caracteristicas[1]/text()')Especie,
+EXTRACTVALUE(DETALLE,'/detalle/Datos/Descripcion/text()')Ubicacion FROM reserva;
+--***************************************
+--4. Proponga una nueva consulta que ilustre la pertinencia de la información registrada en XML. (Diseño e implementación) 
+--***************************************
+--Todas las caracteristicas de las especies
+SELECT EXTRACTVALUE(DETALLE,'/detalle/Datos/Especie/Caracteristicas[1]/text()') Especie,
+EXTRACTVALUE(DETALLE,'/detalle/Datos/Especie/Caracteristicas[2]/text()') Nombre_Cientifico,
+EXTRACTVALUE(DETALLE,'/detalle/Datos/Especie/Caracteristicas[3]/text()') Tipo_Especie,
+EXTRACTVALUE(DETALLE,'/detalle/Datos/Especie/Caracteristicas[4]/text()') Estado_Especie FROM reserva;
+
+
+
+--***************************************
+--***************************************
+--Un nuevo dato 
+--***************************************
+--***************************************
+--XML Ok
+--***************************************
+--Hemos anadido informacion extra a la primera tabla que es la tabla de departamentos le hemos agregado informacion sobre su area, su capital, su poblacion el tipo de terreno que posee, su estado de ingresos, estado de seguridad
+INSERT INTO departamentos VALUES(1,'Frenezi',
+'<?xml version="1.0"?>
+<Info>
+	<Informacion capital_departamento ="Frenezi Capital" area_departamento ="45169641 hectareas" poblacion_departamento ="5416361">
+		<Terreno>Altiplano</Terreno>
+		<Ingreso>Alto</Ingreso>
+		<Seguridad>Alta</Seguridad>
+	</Informacion>
+</Info>'
+);
+
+INSERT INTO departamentos VALUES(2,'Arkan',
+'<?xml version="1.0"?>
+<Info>
+	<Informacion capital_departamento ="Arkan City" area_departamento ="1654613 Hectareas" poblacion_departamento ="46136510">
+		<Terreno>Lodoso</Terreno>
+		<Ingreso>Alto</Ingreso>
+		<Seguridad>Alta</Seguridad>
+	</Informacion>
+</Info>'
+);
+INSERT INTO departamentos VALUES(3,'Batman',
+'<?xml version="1.0"?>
+<Info>
+	<Informacion capital_departamento ="Batman City" area_departamento ="516413 Hectareas" poblacion_departamento ="41630106">
+		<Terreno>Lodoso</Terreno>
+		<Ingreso>Alto</Ingreso>
+		<Seguridad>Alta</Seguridad>
+	</Informacion>
+</Info>'
+);
+INSERT INTO departamentos VALUES(4,'Superman',
+'<?xml version="1.0"?>
+<Info>
+	<Informacion capital_departamento ="Superman City" area_departamento ="4636530 Hectareas" poblacion_departamento ="46541965">
+		<Terreno>Lodoso</Terreno>
+		<Ingreso>Alto</Ingreso>
+		<Seguridad>Alta</Seguridad>
+	</Informacion>
+</Info>'
+);
+INSERT INTO departamentos VALUES(5,'Capital',
+'<?xml version="1.0"?>
+<Info>
+	<Informacion capital_departamento = "Ciudad Capital" area_departamento="5656320 Hectareas" poblacion_departamento ="564198650">
+		<Terreno>Lodoso</Terreno>
+		<Ingreso>Alto</Ingreso>
+		<Seguridad>Alta</Seguridad>
+	</Informacion>
+</Info>'
+);
+
+--***************************************
+--XML No_Ok
+--***************************************
+INSERT INTO departamentos VALUES(1,'Frenezi',
+
+<Info>
+	<Informacion capital_departamento ="Frenezi Capital" area_departamento ="45169641 hectareas" poblacion_departamento ="5416361">
+		<Terreno>Altiplano</Terreno>
+		<Ingreso>Alto</Ingreso>
+	</Informacion>
+</Info>'
+);
+
+INSERT INTO departamentos VALUES(2,'Arkan',
+'<?xml version="1.0"?>
+<Info>
+	<Informacion capital_departamento ="Arkan City" area_departamento ="1654613 Hectareas" poblacion_departamento ="46136510">
+		<Terreno>Lodoso</Terreno>
+		<Ingreso>Alto</Ingreso>
+	</Informacion>
+</Info>'
+)
+INSERT INTO departamentos VALUES(3,'Batman',
+'<?xml version="1.0"?>
+<Info>
+	<Informacion capital_departamento ="Batman City" area_departamento ="516413 Hectareas" poblacion_departamento ="41630106">
+		<Terreno>Lodoso</Terreno>
+		<Ingreso>Alto</Ingreso>
+	</Informacion>
+</Info>
+);
+INSERT INTO departamentos VALUES(4,'Superman',
+'<?xml version="1.0"?>
+<Info>
+	<Informacion capital_departamento ="Superman City" area_departamento ="4636530 Hectareas" poblacion_departamento ="46541965">
+		<Terreno>Lodoso</Terreno>
+		<Ingreso>Alto</Ingreso>
+	</Informacion>
+</Info>'
+
+INSERT INTO departamentos VALUES(5,'Capital',
+'<?xml version="1.0"?>
+<Info>
+	<Informacion capital_departamento = "Ciudad Capital" area_departamento="5656320 Hectareas" poblacion_departamento ="564198650">
+		<Terreno>Lodoso</Terreno>
+		<Ingreso>Alto</Ingreso>
+	</Informacion>
+Info>'
+);
+--***************************************
+--Poblar Ok
+--***************************************
+
+INSERT INTO departamentos VALUES(6,'FFrenezi',
+'<?xml version="1.0"?>
+<Info>
+	<Informacion  capital_departamento ="Frenezi City Capital" area_departamento ="45169641 hectareas" poblacion_departamento ="5416361">
+		<Terreno>Altiplano</Terreno>
+		<Ingreso>Alto</Ingreso>
+		<Seguridad>Alta</Seguridad>
+	</Informacion>
+</Info>'
+);
+
+INSERT INTO departamentos VALUES(7,'AArkan',
+'<?xml version="1.0"?>
+<Info>
+	<Informacion capital_departamento ="City Arkan City" area_departamento ="1654613 Hectareas" poblacion_departamento ="46136510">
+		<Terreno>Lodoso</Terreno>
+		<Ingreso>Alto</Ingreso>
+		<Seguridad>Alta</Seguridad>
+	</Informacion>
+</Info>'
+);
+INSERT INTO departamentos VALUES(8,'BBatman',
+'<?xml version="1.0"?>
+<Info>
+	<Informacion capital_departamento ="City Batman City" area_departamento ="516413 Hectareas" poblacion_departamento ="41630106">
+		<Terreno>Lodoso</Terreno>
+		<Ingreso>Alto</Ingreso>
+		<Seguridad>Alta</Seguridad>
+	</Informacion>
+</Info>'
+);
+INSERT INTO departamentos VALUES(9,'SSuperman',
+'<?xml version="1.0"?>
+<Info>
+	<Informacion capital_departamento ="City Superman City" area_departamento ="4636530 Hectareas" poblacion_departamento ="46541965">
+		<Terreno>Lodoso</Terreno>
+		<Ingreso>Alto</Ingreso>
+		<Seguridad>Alta</Seguridad>
+	</Informacion>
+</Info>'
+);
+INSERT INTO departamentos VALUES(10,'CCapital',
+'<?xml version="1.0"?>
+<Info>
+	<Informacion capital_departamento = "City Ciudad Capital" area_departamento="5656320 Hectareas" poblacion_departamento ="564198650">
+		<Terreno>Lodoso</Terreno>
+		<Ingreso>Alto</Ingreso>
+		<Seguridad>Alta</Seguridad>
+	</Informacion>
+</Info>'
+);
+
+
+INSERT INTO departamentos VALUES(11,'FFFrenezi',
+'<?xml version="1.0"?>
+<Info>
+	<Informacion capital_departamento ="City Frenezi Capital" area_departamento ="45169641 hectareas" poblacion_departamento ="5416361">
+		<Terreno>Altiplano</Terreno>
+		<Ingreso>Alto</Ingreso>
+		<Seguridad>Alta</Seguridad>
+	</Informacion>
+</Info>'
+);
+
+INSERT INTO departamentos VALUES(12,'AAArkan',
+'<?xml version="1.0"?>
+<Info>
+	<Informacion capital_departamento ="City Arkan City" area_departamento ="1654613 Hectareas" poblacion_departamento ="46136510">
+		<Terreno>Lodoso</Terreno>
+		<Ingreso>Alto</Ingreso>
+		<Seguridad>Alta</Seguridad>
+	</Informacion>
+</Info>'
+);
+INSERT INTO departamentos VALUES(13,'BBBatman',
+'<?xml version="1.0"?>
+<Info>
+	<Informacion capital_departamento ="City Batman City" area_departamento ="516413 Hectareas" poblacion_departamento ="41630106">
+		<Terreno>Lodoso</Terreno>
+		<Ingreso>Alto</Ingreso>
+		<Seguridad>Alta</Seguridad>
+	</Informacion>
+</Info>'
+);
+INSERT INTO departamentos VALUES(14,'SSSuperman',
+'<?xml version="1.0"?>
+<Info>
+	<Informacion capital_departamento ="City Superman City" area_departamento ="4636530 Hectareas" poblacion_departamento ="46541965">
+		<Terreno>Lodoso</Terreno>
+		<Ingreso>Alto</Ingreso>
+		<Seguridad>Alta</Seguridad>
+	</Informacion>
+</Info>'
+);
+INSERT INTO departamentos VALUES(15,'CCCapital',
+'<?xml version="1.0"?>
+<Info>
+	<Informacion capital_departamento = "City Ciudad Capital" area_departamento="5656320 Hectareas" poblacion_departamento ="564198650">
+		<Terreno>Lodoso</Terreno>
+		<Ingreso>Alto</Ingreso>
+		<Seguridad>Alta</Seguridad>
+	</Informacion>
+</Info>'
+);
+
+--***************************************
+--Poblar No_Ok
+--***************************************
+
+INSERT INTO departamentos VALUES(6,'FFrenezi',
+'<?xml version="1.0"?>
+<Info>
+	<Informacion capital_departamento ="Frenezi CapitalCity " area_departamento ="45169641 hectareas"  poblacion_departamento ="5416361">
+		<Terreno>Altiplano</Terreno>
+		<Ingreso>Alto</Ingreso>
+		<Seguridad>Alta</Seguridad>
+
+</Info>'
+);
+
+INSERT INTO departamentos VALUES(7,'AArkan',
+'<?xml version="1.0"?>
+<Info>
+	<Informacion capital_departamento ="Frenezi CapitalCity "area_departamento ="1654613 Hectareas" capital_departamento ="Arkan CityCity " poblacion_departamento ="46136510">
+		<Terreno>Lodoso</Terreno>
+		<Ingreso>Alto</Ingreso>
+		<Seguridad>Alta</Seguridad>
+	</Informacion>
+</Info>'
+
+INSERT INTO departamentos VALUES(8,'BBatman',
+'<?xml version="1.0"?>
+<Info>
+	<Informacicapital_departamento ="Batman CityCity " poblacion_departamento ="41630106">on area_departamento ="516413 Hectareas" 
+		<Terreno>Lodoso</Terreno>
+		<Ingreso>Alto</Ingreso>
+		<Seguridad>Alta</Seguridad>
+	</Informacion>
+
+);
+INSERT INTO departamentos VALUES(9,'SSuperman',
+'<?xml version="1.0"?>
+<Info>
+	<Informacion area_departamento ="4636530 Hectareas" capital_departamento ="Superman CityCity " poblacion_departamento ="46541965">
+		<Terreno>Lodoso</Terreno>
+		<Ingreso>Alto</Ingreso>
+		<Seguridad>Alta</Seguridad>
+
+);
+INSERT INTO departamentos VALUES(10,'CCapital',
+>
+<Info>
+	<Informacion capital_departamento ="Batman CityCity " poblacion_departamento ="41630106">area_departamento="5656320 Hectareas" x poblacion_departamento ="564198650">
+		<Terreno>Lodoso</Terreno>
+		<Ingreso>Alto</Ingreso>
+		<Seguridad>Alta</Seguridad>
+	</Informacion>
+</Info>'
+);
+
+
+INSERT INTO departamentos VALUES(11,'FFFrenezi',
+'<?xml version="1.0"?>
+<Info>
+		<Seguridad>Alta</Seguridad>
+	<Informacion area_departamento ="45169641 hectareas" capital_departamento ="Frenezi CapitalCity " poblacion_departamento ="5416361">
+		<Terreno>Altiplano</Terreno>
+		<Ingreso>Alto</Ingreso>
+	</Informacion>
+
+);
+
+INSERT INTO departamentos VALUES(12,'AAArkan',
+'<?xml version="1.0"?>
+<Info>vv		<Seguridad>Alta</Seguridad>
+
+);
+INSERT INTO departamentos VALUES(13,'BBBatman',
+'<?xml version="1.0"?>
+<Info>
+	<Informacion area_departamento ="516413 Hectareas" capital_departamento ="BatmanCity  City" poblacion_departamento ="41630106">
+		<Terreno>Lodoso</Terreno>
+		<Ingreso>Alto</Ingreso>
+	</Informacion>;
+INSERT INTO departamentos VALUES(14,'SSSuperman',
+
+<Info>
+	<Informacion area_departamento ="4636530 Hectareas" capital_departamento ="Superman City" poblacion_departamento ="46541965">
+		<Terreno>Lodoso</Terreno>City 
+		<Ingreso>Alto</Ingreso>
+	</Informacion>
+</Info>'
+);
+INSERT INTO departamentos VALUES(15,'CCCapital',
+
+<Info>		<Seguridad>Alta</Seguridad>
+	<Informacion area_departamento="5656320 Hectareas" capital_departamento = "Ciudad CCity apital" poblacion_departamento ="564198650">
+		<Terreno>Lodoso</Terreno>
+		<Ingreso>Alto</Ingreso>
+	</Informacion>
+</Info>'
+);
+
+--***************************************
+--Proponga una nueva consulta que ilustre la pertinencia de la información registrada en XML. (Diseño e implementación)
+--***************************************
+--consulta la capital, el area, la poblacion, el terreno, el ingreso y la seguridad por departamento 
+
+SELECT EXTRACTVALUE(Info,'/Info/Informacion/@capital_departamento') capital,
+	EXTRACTVALUE(Info,'/Info/Informacion/@area_departamento') area,
+	EXTRACTVALUE(Info,'/Info/Informacion/@poblacion_departamento') poblacion,
+	EXTRACTVALUE(Info,'/Info/Informacion/Terreno/text()') T_Terreno,
+	EXTRACTVALUE(Info,'/Info/Informacion/Ingreso/text()') T_Ingreso,
+	EXTRACTVALUE(Info,'/Info/Informacion/Seguridad/text()') T_Seguridad 
+	FROM departamentos;
+
+
+
+
+

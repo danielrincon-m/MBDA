@@ -1,0 +1,450 @@
+--¿? Crear la base de datos sin restricciones (Tablas) 
+--************
+CREATE TABLE camera(id NUMBER(11) NOT NULL, perim VARCHAR2(3));
+CREATE TABLE vehicle(id VARCHAR2(9) NOT NULL, keeper NUMBER(11));
+CREATE TABLE permit(reg VARCHAR2(9) NOT NULL, sDate TIMESTAMP NOT NULL, chargeType VARCHAR2(10));
+CREATE TABLE image(camera NUMBER(11) NOT NULL, whn TIMESTAMP NOT NULL, reg VARCHAR2(9));
+CREATE TABLE keeper(id NUMBER(11) NOT NULL, name VARCHAR2(20) , address VARCHAR2(25));
+--NUEVOS CASOS DE USO
+--Los datos de la tarifa son: tipo de cobro, número de dias, valor del cobro.
+CREATE TABLE tarifas(chargeType VARCHAR(10),numero_de_dias NUMBER(10),valor_del_cobro NUMBER(10));
+--Los datos del pago son: número, fecha, valor y permiso asociado
+CREATE TABLE pagos(numero NUMBER(10), fecha TIMESTAMP NOT NULL, valor NUMBER(10), permiso_asociado VARCHAR2(9));
+--**********
+--***********
+--¿? Adicionar las restricciones a la base de datos  (Atributos,Primarias, Unicas, Foraneas)
+--¿?ATRIBUTOS 
+ALTER TABLE camera 
+ADD CONSTRAINT CK_camera_id CHECK (id > 0);
+--perim : sólo puede ser IN OUT o NULL
+ALTER TABLE camera 
+ADD CONSTRAINT CK_camera_perim CHECK(perim='IN' or perim='OUT' or perim=NULL);
+
+ALTER TABLE permit 
+ADD CONSTRAINT CK_permit_chargetype CHECK (chargetype in ('Monthly','Weekly','Daily','Annual'));
+
+ALTER TABLE vehicle
+ADD CONSTRAINT CK_vehicle_id CHECK((REGEXP_LIKE(SUBSTR(id,1,2),'^[A-Z]+$')AND REGEXP_LIKE(SUBSTR(id,4,3),'^[0-9]+$') AND REGEXP_LIKE(SUBSTR(id,8,2),'^[A-Z]+$'))
+              and (id like('% % %')));
+
+ALTER TABLE image 
+ADD CONSTRAINT CK_image_camera CHECK(camera>0);
+
+ALTER TABLE keeper 
+ADD CONSTRAINT CK_keeper_id CHECK(id>0);
+--************
+--************
+--¿?PRIMARIAS
+ALTER TABLE pagos
+ADD CONSTRAINT PK_pagos PRIMARY KEY(numero);
+
+ALTER TABLE camera
+ADD CONSTRAINT PK_camera PRIMARY KEY (id);
+
+ALTER TABLE image
+ADD CONSTRAINT PK_image PRIMARY KEY (camera, whn);
+
+ALTER TABLE keeper
+ADD CONSTRAINT PK_keeper PRIMARY KEY (id);
+
+ALTER TABLE permit
+ADD CONSTRAINT PK_permit PRIMARY KEY (reg, sDate);
+
+ALTER TABLE vehicle
+ADD CONSTRAINT PK_vehicle PRIMARY KEY (id);
+--************
+--************
+--¿?FORANEAS 
+ALTER TABLE image
+ADD CONSTRAINT FK_image_camera
+FOREIGN KEY (camera)
+REFERENCES camera(id);
+
+ALTER TABLE vehicle
+ADD CONSTRAINT FK_vehicle_keeper
+FOREIGN KEY (keeper)
+REFERENCES keeper(id);
+
+ALTER TABLE pagos
+ADD CONSTRAINT FK_pagos_permit
+FOREIGN KEY (permiso_asociado,fecha)
+REFERENCES permit(reg,sDate);
+--************
+--************
+--Adicionando acciones de referencia
+--Siempre es posible eliminar los vehiculos del sistema.
+ALTER TABLE image
+ADD CONSTRAINT FK_image_vehicle
+FOREIGN KEY (reg)
+REFERENCES vehicle(id) ON DELETE CASCADE;
+
+ALTER TABLE permit
+ADD CONSTRAINT FK_permit_vehicle
+FOREIGN KEY (reg)
+REFERENCES vehicle(id) ON DELETE CASCADE;
+--************
+--************
+--**********
+--**********
+--id: debe ser un consecutivo
+--DISPARADOR
+--TRIGGER Ad_RATE
+CREATE OR REPLACE TRIGGER Ad_RATE
+BEFORE INSERT ON tarifas 
+FOR EACH ROW
+BEGIN 
+SELECT valor_del_cobro INTO :new.valor_del_cobro 
+FROM tarifas
+WHERE MOD(valor_del_cobro,50)=0;
+END Ad_RATE;
+--CONSECUTIVOS
+CREATE OR REPLACE TRIGGER ID_Consecutivo
+BEFORE INSERT ON camera
+FOR EACH ROW
+BEGIN 
+SELECT COUNT(*)+1 INTO :new.id
+FROM camera;
+END ID_Consecutivo;
+--Al modificar no se permite bajar el valor del cobro
+--trigger MoRate
+CREATE OR REPLACE TRIGGER valorCobro_Check
+BEFORE UPDATE OF valor_del_cobro ON tarifas
+FOR EACH ROW
+WHEN (new.valor_del_cobro<old.valor_del_cobro)
+BEGIN 
+:new.valor_del_cobro := :old.valor_del_cobro;
+raise_application_error(-2020,'valor del cobro debe ser MAYOR al valor de cobro anterior');
+END valorCobro_Check;
+
+--TRIGGER Ad_PAYMENT
+--CREATE OR REPLACE TRIGGER Ad_PAYMENT
+--BEFORE INSERT ON pagos
+--FOR EACH ROW 
+--BEGIN 
+--SELECT COUNT(*)+1 into :new.numero FROM pago;
+
+--END Ad_PAYMENT;
+
+--TRIGGER Mo_PAYMENT
+CREATE OR REPLACE TRIGGER Mo_PAYMENT
+BEFORE UPDATE ON pagos
+FOR EACH ROW
+BEGIN
+raise_application_error(-20030,'La modificacion de valores no es permitida');
+END  Mo_PAYMENT;
+
+--TRIGGER El_PAYMENT 
+CREATE OR REPLACE TRIGGER El_PAYMENT
+BEFORE DELETE ON pagos
+FOR EACH ROW
+BEGIN
+raise_application_error(-20031,'La eliminacion de valores no es permitida');
+END  El_PAYMENT;
+--**********
+--**********
+--TRIGGER BORRAR
+DROP TRIGGER Ad_PAYMENT;
+DROP TRIGGER Mo_PAYMENT;
+DROP TRIGGER El_PAYMENT;
+DROP TRIGGER ID_Consecutivo;
+DROP TRIGGER valorCobro_Check;
+DROP TRIGGER Ad_RATE;
+--*****************
+--¿? Poblar la base de datos con los datos iniciales (PoblarOK) 
+--##(PoblarOKFinal)
+INSERT INTO camera(perim) VALUES('IN');
+INSERT INTO camera(perim) VALUES('IN');
+INSERT INTO camera(perim) VALUES('IN');
+INSERT INTO camera(perim) VALUES('IN');
+INSERT INTO camera(perim) VALUES('IN');
+INSERT INTO camera(perim) VALUES('IN');
+INSERT INTO camera(perim) VALUES('IN');
+INSERT INTO camera(perim) VALUES('IN');
+INSERT INTO camera(perim) VALUES('OUT');
+INSERT INTO camera(perim) VALUES('OUT');
+INSERT INTO camera(perim) VALUES('OUT');
+INSERT INTO camera(perim) VALUES('OUT');
+INSERT INTO camera(perim) VALUES('OUT');
+INSERT INTO camera(perim) VALUES('OUT');
+INSERT INTO camera(perim) VALUES('OUT');
+INSERT INTO camera(perim) VALUES('OUT');
+INSERT INTO camera(perim) VALUES('');
+INSERT INTO camera(perim) VALUES('');
+INSERT INTO camera(perim) VALUES('');
+--Poblar NO OK casos parecidos a como debe ser el insert correcto 
+INSERT INTO camera VALUES(123,'IoN');
+INSERT INTO camera VALUES(0,'IuN');
+INSERT INTO camera VALUES(10,'IkN');
+INSERT INTO camera VALUES(15,'IkN');
+INSERT INTO camera VALUES(1515,'IN');
+INSERT INTO camera VALUES('1as','INn');
+INSERT INTO camera VALUES('','INn');
+INSERT INTO camera VALUES('','Inn');
+--*****************
+--*****************
+--##(PoblarOKFinal)
+INSERT INTO keeper VALUES (1,'Ambiguous, Arthur','Absorption Ave.');
+INSERT INTO keeper VALUES (2,'Inconspicuous, Iain', 'Interception Rd.');
+INSERT INTO keeper VALUES (3,'Contiguous, Carol', 'Circumscription Close');
+INSERT INTO keeper VALUES (4,'Strenuous, Sam','Surjection Street');
+INSERT INTO keeper VALUES (5,'Assiduous, Annie','Attribution Alley');
+INSERT INTO keeper VALUES (6,'Incongruous, Ingrid','Irresolution Pl.');
+--Poblar No OK
+--##Poblar No OK casos parecidos a como debe ser el insert correcto 
+INSERT INTO keeper VALUES ('','Strenuous, Sam','Surjection Street');
+INSERT INTO keeper VALUES ('','Assiduous, Annie','Attribution Alley');
+INSERT INTO keeper VALUES ('','Incongruous, Ingrid','Irresolution Pl.');
+--*************
+--*************
+--##(PoblarOKFinal)
+INSERT INTO vehicle VALUES ('SO 021 AS',1);
+INSERT INTO vehicle VALUES ('SO 022 BS',3);
+INSERT INTO vehicle VALUES ('SO 023 CS',1);
+INSERT INTO vehicle VALUES ('SO 024 DS',4);
+INSERT INTO vehicle VALUES ('SO 025 ES',1);
+INSERT INTO vehicle VALUES ('SO 026 FS',3);
+INSERT INTO vehicle VALUES ('SO 027 GS',6);
+INSERT INTO vehicle VALUES ('SO 028 HS',5);
+INSERT INTO vehicle VALUES ('SO 029 IS',6);
+INSERT INTO vehicle VALUES ('SO 020 JS',2);
+INSERT INTO vehicle VALUES ('SO 011 KS',5);
+INSERT INTO vehicle VALUES ('SO 012 LS',2);
+INSERT INTO vehicle VALUES ('SO 013 MS',2);
+INSERT INTO vehicle VALUES ('SO 014 NS',4);
+INSERT INTO vehicle VALUES ('SO 015 OS',6);
+INSERT INTO vehicle VALUES ('SO 016 PS',4);
+INSERT INTO vehicle VALUES ('SO 017 QS',6);
+INSERT INTO vehicle VALUES ('SO 018 RS',1);
+INSERT INTO vehicle VALUES ('SO 019 SS',2);
+--##(PoblarNoOKFinal)
+INSERT INTO vehicle VALUES ('SO 02 ASP',1);
+INSERT INTO vehicle VALUES ('SO 02 BSP',3);
+INSERT INTO vehicle VALUES ('SO 02 CSP',1);
+INSERT INTO vehicle VALUES ('SO 02 DSP',4);
+INSERT INTO vehicle VALUES ('SO 02 ESP',1);
+INSERT INTO vehicle VALUES ('SO 02 FSP',3);
+INSERT INTO vehicle VALUES ('SO 02 GSP',6);
+INSERT INTO vehicle VALUES ('SO 02 HSP',5);
+INSERT INTO vehicle VALUES ('SO 02 ISP',6);
+INSERT INTO vehicle VALUES ('SO 02 JSP',2);
+INSERT INTO vehicle VALUES ('SO 02 KSP',5);
+INSERT INTO vehicle VALUES ('SO 02 LSP',2);
+INSERT INTO vehicle VALUES ('SO 02 MSP',2);
+INSERT INTO vehicle VALUES ('SO 02 NSP',4);
+INSERT INTO vehicle VALUES ('SO 02 OSP',6);
+INSERT INTO vehicle VALUES ('SO 02 PSP',4);
+INSERT INTO vehicle VALUES ('SO 02 QSP',6);
+INSERT INTO vehicle VALUES ('SO 02 RSP',1);
+INSERT INTO vehicle VALUES ('SO 02 SSP',2);
+INSERT INTO vehicle VALUES ('SO 02 TSP',6);
+--***************
+--***************
+--PoblarOK
+INSERT INTO permit VALUES('SO 021 AS', TO_DATE('2006-01-21 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),'Weekly');
+INSERT INTO permit VALUES('SO 022 BS', TO_DATE('2006-01-30 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),'Weekly');
+INSERT INTO permit VALUES('SO 023 CS', TO_DATE('2007-01-21 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),'Weekly');
+INSERT INTO permit VALUES('SO 024 DS', TO_DATE('2007-01-30 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),'Weekly');
+INSERT INTO permit VALUES('SO 025 ES', TO_DATE('2007-02-21 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),'Weekly');
+INSERT INTO permit VALUES('SO 026 FS', TO_DATE('2007-02-25 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),'Weekly');
+INSERT INTO permit VALUES('SO 027 GS', TO_DATE('2007-02-28 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),'Weekly');
+INSERT INTO permit VALUES('SO 028 HS', TO_DATE('2006-01-21 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),'Monthly');
+INSERT INTO permit VALUES('SO 029 IS', TO_DATE('2006-01-30 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),'Monthly');
+INSERT INTO permit VALUES('SO 020 JS', TO_DATE('2007-01-21 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),'Monthly');
+INSERT INTO permit VALUES('SO 011 KS', TO_DATE('2007-01-30 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),'Monthly');
+INSERT INTO permit VALUES('SO 012 LS', TO_DATE('2007-02-21 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),'Monthly');
+INSERT INTO permit VALUES('SO 013 MS', TO_DATE( '2007-02-25 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),'Monthly');
+INSERT INTO permit VALUES('SO 014 NS', TO_DATE('2007-02-28 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),'Monthly');
+INSERT INTO permit VALUES('SO 015 OS', TO_DATE('2006-01-21 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),'Monthly');
+INSERT INTO permit VALUES('SO 016 PS', TO_DATE('2006-01-30 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),'Monthly');
+INSERT INTO permit VALUES('SO 017 QS', TO_DATE('2007-01-21 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),'Annual');
+INSERT INTO permit VALUES('SO 018 RS', TO_DATE('2007-01-30 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),'Annual');
+INSERT INTO permit VALUES('SO 019 SS', TO_DATE('2007-02-21 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),'Annual');
+INSERT INTO permit VALUES('SO 031 TS', TO_DATE('2007-02-25 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),'Annual');
+INSERT INTO permit VALUES('SO 032 AT', TO_DATE('2007-01-21 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),'Daily');
+INSERT INTO permit VALUES('SO 033 BT', TO_DATE('2006-01-30 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),'Daily');
+INSERT INTO permit VALUES('SO 034 CT', TO_DATE('2007-01-21 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),'Daily');
+INSERT INTO permit VALUES('SO 035 DT', TO_DATE('2007-01-30 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),'Daily');
+INSERT INTO permit VALUES('SO 036 ET', TO_DATE('2007-02-21 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),'Daily');
+INSERT INTO permit VALUES('SO 037 FT', TO_DATE('2007-02-25 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),'Daily');
+INSERT INTO permit VALUES('SO 038 GT', TO_DATE('2007-02-28 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),'Daily');
+INSERT INTO permit VALUES('SO 039 HT', TO_DATE('2006-01-21 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),'Daily');
+INSERT INTO permit VALUES('SO 040 IT', TO_DATE('2006-01-30 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),'Daily');
+INSERT INTO permit VALUES('SO 041 JT', TO_DATE('2007-01-21 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),'Daily');
+INSERT INTO permit VALUES('SO 042 KT', TO_DATE('2007-01-30 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),'Daily');
+INSERT INTO permit VALUES('SO 043 MU', TO_DATE('2007-01-22 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),'Daily');
+INSERT INTO permit VALUES('SO 044 NU', TO_DATE('2006-01-31 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),'Daily');
+INSERT INTO permit VALUES('SO 045 OU', TO_DATE('2007-01-22 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),'Daily');
+INSERT INTO permit VALUES('SO 046 PU', TO_DATE('2007-01-31 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),'Daily');
+INSERT INTO permit VALUES('SO 047 QU', TO_DATE('2007-02-22 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),'Daily');
+INSERT INTO permit VALUES('SO 048 FP', TO_DATE('2007-02-26 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),'Daily');
+INSERT INTO permit VALUES('SO 049 GP', TO_DATE('2007-03-01 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),'Daily');
+INSERT INTO permit VALUES('SO 050 HP', TO_DATE('2006-01-22 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),'Daily');
+INSERT INTO permit VALUES('SO 051 IP', TO_DATE('2006-01-31 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),'Daily');
+INSERT INTO permit VALUES('SO 052 JP', TO_DATE('2007-01-22 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),'Daily');
+INSERT INTO permit VALUES('SO 053 KT', TO_DATE('2007-01-31 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),'Daily');
+INSERT INTO permit VALUES('SO 054 TP', TO_DATE('2007-02-03 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),'Daily');
+INSERT INTO permit VALUES('SO 055 BP', TO_DATE('2007-02-04 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),'Daily');
+INSERT INTO permit VALUES('SO 056 TP', TO_DATE('2007-02-05 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),'Daily');
+INSERT INTO permit VALUES('SO 057 BP', TO_DATE('2007-02-06 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),'Daily');
+INSERT INTO permit VALUES('SO 058 BP', TO_DATE('2007-02-07 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),'Daily');
+--Poblar NO OK casos parecidos a como debe ser el insert correcto 
+INSERT INTO permit VALUES('SO 02 ASP',TO_DATE('2006-01-21 00:00:00','YYYY-MM-DD HH24:MI:SS'),'Weekly');
+INSERT INTO permit VALUES('SO 02 BSP',TIMESTAMP '2006-01-30 00:00:00','Weekly');
+INSERT INTO permit VALUES('SO 02 CSP',TIMESTAMP '2007-01-21 00:00:00','Weekly');
+INSERT INTO permit VALUES('SO 02 DSP',TIMESTAMP '2007-01-30 00:00:00','Weekly');
+INSERT INTO permit VALUES('SO 02 ESP',TIMESTAMP '2007-02-21 00:00:00','Weekly');
+INSERT INTO permit VALUES('SO 02 FSP',TIMESTAMP '2007-02-25 00:00:00','Weekly');
+INSERT INTO permit VALUES('SO 02 GSP',TIMESTAMP '2007-02-28 00:00:00','Weekly');
+INSERT INTO permit VALUES('SO 02 HSP',TIMESTAMP '2006-01-21 00:00:00','Monthly');
+INSERT INTO permit VALUES('SO 02 ISP',TIMESTAMP '2006-01-30 00:00:00','Monthly');
+INSERT INTO permit VALUES('SO 02 JSP',TIMESTAMP '2007-01-21 00:00:00','Monthly');
+INSERT INTO permit VALUES('SO 02 KSP',TIMESTAMP '2007-01-30 00:00:00','Monthly');
+INSERT INTO permit VALUES('SO 02 LSP',TIMESTAMP '2007-02-21 00:00:00','Monthly');
+INSERT INTO permit VALUES('SO 02 MSP',TIMESTAMP '2007-02-25 00:00:00','Monthly');
+INSERT INTO permit VALUES('SO 02 NSP',TIMESTAMP '2007-02-28 00:00:00','Monthly');
+INSERT INTO permit VALUES('SO 02 OSP',TIMESTAMP '2006-01-21 00:00:00','Monthly');
+INSERT INTO permit VALUES('SO 02 PSP',TIMESTAMP '2006-01-30 00:00:00','Monthly');
+--***************
+--***************
+--Poblar OK
+INSERT INTO image VALUES(1, TO_DATE('2007-02-25 06:10:13', 'YYYY-MM-DD HH24:MI:SS'), 'SO 021 AS');
+INSERT INTO image VALUES(17, TO_DATE('2007-02-25 06:20:01', 'YYYY-MM-DD HH24:MI:SS'), 'SO 022 BS');
+INSERT INTO image VALUES(18, TO_DATE('2007-02-25 06:23:40', 'YYYY-MM-DD HH24:MI:SS'), 'SO 023 CS');
+INSERT INTO image VALUES(9, TO_DATE('2007-02-25 06:26:04', 'YYYY-MM-DD HH24:MI:SS'), 'SO 024 DS');
+INSERT INTO image VALUES(17, TO_DATE('2007-02-25 06:57:31', 'YYYY-MM-DD HH24:MI:SS'), 'SO 025 ES');
+INSERT INTO image VALUES(17, TO_DATE('2007-02-25 07:00:40', 'YYYY-MM-DD HH24:MI:SS'), 'SO 026 FS');
+INSERT INTO image VALUES(12, TO_DATE('2007-02-25 07:04:31', 'YYYY-MM-DD HH24:MI:SS'), 'SO 027 GS');
+INSERT INTO image VALUES(5, TO_DATE('2007-02-25 07:10:00', 'YYYY-MM-DD HH24:MI:SS'), 'SO 028 HS');
+INSERT INTO image VALUES(16, TO_DATE('2007-02-25 07:13:00', 'YYYY-MM-DD HH24:MI:SS'), 'SO 029 IS');
+INSERT INTO image VALUES(2, TO_DATE('2007-02-25 07:20:01', 'YYYY-MM-DD HH24:MI:SS'), 'SO 020 JS');
+INSERT INTO image VALUES(19, TO_DATE('2007-02-25 07:23:00', 'YYYY-MM-DD HH24:MI:SS'), 'SO 011 KS');
+INSERT INTO image VALUES(19, TO_DATE('2007-02-25 07:26:31', 'YYYY-MM-DD HH24:MI:SS'), 'SO 012 LS');
+INSERT INTO image VALUES(19, TO_DATE('2007-02-25 07:29:00', 'YYYY-MM-DD HH24:MI:SS'), 'SO 013 MS');
+INSERT INTO image VALUES(8, TO_DATE('2007-02-25 07:35:41', 'YYYY-MM-DD HH24:MI:SS'), 'SO 014 NS');
+INSERT INTO image VALUES(18, TO_DATE('2007-02-25 07:39:04', 'YYYY-MM-DD HH24:MI:SS'), 'SO 015 OS');
+INSERT INTO image VALUES(18, TO_DATE('2007-02-25 07:42:30', 'YYYY-MM-DD HH24:MI:SS'), 'SO 016 PS');
+INSERT INTO image VALUES(10, TO_DATE('2007-02-25 07:45:11', 'YYYY-MM-DD HH24:MI:SS'), 'SO 017 QS');
+INSERT INTO image VALUES(8, TO_DATE('2007-02-25 07:48:10', 'YYYY-MM-DD HH24:MI:SS'), 'SO 018 RS');
+INSERT INTO image VALUES(19, TO_DATE('2007-02-25 07:51:10', 'YYYY-MM-DD HH24:MI:SS'), 'SO 019 SS');
+INSERT INTO image VALUES(18, TO_DATE('2007-02-25 07:55:11', 'YYYY-MM-DD HH24:MI:SS'), 'SO 031 TS');
+INSERT INTO image VALUES(11, TO_DATE('2007-02-25 07:58:01', 'YYYY-MM-DD HH24:MI:SS'), 'SO 032 AT');
+INSERT INTO image VALUES(18, TO_DATE('2007-02-25 16:28:40', 'YYYY-MM-DD HH24:MI:SS'), 'SO 033 BT');
+INSERT INTO image VALUES(9, TO_DATE('2007-02-25 16:31:01', 'YYYY-MM-DD HH24:MI:SS'), 'SO 034 CT');
+INSERT INTO image VALUES(18, TO_DATE('2007-02-25 16:38:31', 'YYYY-MM-DD HH24:MI:SS'), 'SO 035 DT');
+INSERT INTO image VALUES(9, TO_DATE('2007-02-25 16:39:10', 'YYYY-MM-DD HH24:MI:SS'), 'SO 036 ET');
+INSERT INTO image VALUES(9, TO_DATE('2007-02-25 16:45:04', 'YYYY-MM-DD HH24:MI:SS'), 'SO 037 FT');
+INSERT INTO image VALUES(9, TO_DATE('2007-02-25 16:48:11', 'YYYY-MM-DD HH24:MI:SS'), 'SO 038 GT');
+INSERT INTO image VALUES(9, TO_DATE('2007-02-25 16:51:30', 'YYYY-MM-DD HH24:MI:SS'), 'SO 039 HT');
+INSERT INTO image VALUES(9, TO_DATE('2007-02-25 16:58:01', 'YYYY-MM-DD HH24:MI:SS'), 'SO 040 IT');
+INSERT INTO image VALUES(12, TO_DATE('2007-02-25 17:01:13', 'YYYY-MM-DD HH24:MI:SS'), 'SO 041 JT');
+INSERT INTO image VALUES(3, TO_DATE('2007-02-25 17:07:00', 'YYYY-MM-DD HH24:MI:SS'), 'SO 042 KT');
+INSERT INTO image VALUES(18, TO_DATE('2007-02-25 17:10:43', 'YYYY-MM-DD HH24:MI:SS'), 'SO 043 MU');
+INSERT INTO image VALUES(19, TO_DATE('2007-02-25 17:14:11', 'YYYY-MM-DD HH24:MI:SS'), 'SO 044 NU');
+INSERT INTO image VALUES(3, TO_DATE('2007-02-25 17:17:03', 'YYYY-MM-DD HH24:MI:SS'), 'SO 045 OU');
+INSERT INTO image VALUES(10, TO_DATE('2007-02-25 18:23:11', 'YYYY-MM-DD HH24:MI:SS'), 'SO 046 PU');
+INSERT INTO image VALUES(11, TO_DATE('2007-02-25 18:26:13', 'YYYY-MM-DD HH24:MI:SS'), 'SO 047 QU');
+INSERT INTO image VALUES(12, TO_DATE('2007-02-25 18:29:01', 'YYYY-MM-DD HH24:MI:SS'),'SO 048 UP');
+INSERT INTO image VALUES(3, TO_DATE('2007-02-25 18:33:10', 'YYYY-MM-DD HH24:MI:SS'),'SO 049 PP');
+INSERT INTO image VALUES(15, TO_DATE('2007-02-25 18:36:31', 'YYYY-MM-DD HH24:MI:SS'),'SO 050 YP');
+INSERT INTO image VALUES(3, TO_DATE('2007-02-25 18:39:10', 'YYYY-MM-DD HH24:MI:SS'),'SO 051 PJ');
+INSERT INTO image VALUES(10, TO_DATE('2007-02-26 05:13:30', 'YYYY-MM-DD HH24:MI:SS'),'SO 052 SP');
+INSERT INTO image VALUES(18, TO_DATE('2007-02-25 16:29:11', 'YYYY-MM-DD HH24:MI:SS'),'SO 053 DP');
+INSERT INTO image VALUES(19, TO_DATE('2007-02-25 16:31:01', 'YYYY-MM-DD HH24:MI:SS'),'SO 054 DT');
+INSERT INTO image VALUES(19, TO_DATE('2007-02-25 17:42:41', 'YYYY-MM-DD HH24:MI:SS'),'SO 055 UY');
+INSERT INTO image VALUES(9, TO_DATE('2007-02-25 18:54:30', 'YYYY-MM-DD HH24:MI:SS'),'SO 056 OI');
+INSERT INTO image VALUES(3, TO_DATE('2007-02-25 17:16:11', 'YYYY-MM-DD HH24:MI:SS'),'SO 057 PI');
+INSERT INTO image VALUES(10, TO_DATE('2007-02-25 18:08:40', 'YYYY-MM-DD HH24:MI:SS'),'SO 058 OP');
+INSERT INTO image VALUES(11, TO_DATE('2007-02-25 18:08:00', 'YYYY-MM-DD HH24:MI:SS'),'SO 059 FP');
+INSERT INTO image VALUES(12, TO_DATE('2007-02-25 18:08:13', 'YYYY-MM-DD HH24:MI:SS'),'SO 060 GP');
+--##Poblar No OK casos parecidos a como debe ser el insert correcto 
+INSERT INTO image VALUES(1,TIMESTAMP '2007-02-25 06:10:13','SO 02 ASP');
+INSERT INTO image VALUES(17,TIMESTAMP '2007-02-25 06:20:01','SO 02 ASP');
+INSERT INTO image VALUES(18,TIMESTAMP '2007-02-25 06:23:40','SO 02 ASP');
+INSERT INTO image VALUES(9,TIMESTAMP '2007-02-25 06:26:04','SO 02 ASP');
+INSERT INTO image VALUES(17,TIMESTAMP '2007-02-25 06:57:31','SO 02 CSP');
+INSERT INTO image VALUES(17,TIMESTAMP '2007-02-25 07:00:40','SO 0512 CSP');
+INSERT INTO image VALUES(12,TIMESTAMP '2007-02-25 07:04:31','SO 02 CSP');
+INSERT INTO image VALUES(5,TIMESTAMP '2007-02-25 07:10:00','SO 02 GSP');
+INSERT INTO image VALUES(16,TIMESTAMP '2007-02-25 07:13:00','SO 02 GSP'); 
+--***************
+--***************
+--##Poblar No OK
+--¿? Probar las restricciones con los casos definidos en NoOK (PoblarNoOK) 
+INSERT INTO camera VALUES(0,'');
+INSERT INTO camera VALUES(5,'HOLA');
+INSERT INTO image VALUES(0,'','SQL_ORACLE_PRUEBA');
+INSERT INTO keeper VALUES(12,'_SQL_DEVELOPER_ORACLE_PRUEBA_TEST','01234567891011121314151617181920');
+INSERT INTO permit VALUES('','','');
+INSERT INTO vehicle VALUES('','');
+--************
+--************
+--Disparadores OK
+INSERT INTO camera(perim) VALUES('IN');
+INSERT INTO camera(perim) VALUES('IN');
+INSERT INTO camera(perim) VALUES('IN');
+INSERT INTO camera(perim) VALUES('IN');
+INSERT INTO camera(perim) VALUES('IN');
+
+--Escriba 3 instrucciones que permitan probar la actualización de la base de datos
+--haciendo uso de cada disparador, cuando sea pertinente 
+--(DisparadoresOK)
+INSERT INTO tarifas VALUES('Daily',10,150);
+UPDATE tarifas SET valor_del_cobro=160;
+INSERT INTO tarifas VALUES('Daily',10,170);
+UPDATE tarifas SET valor_del_cobro=180;
+INSERT INTO tarifas VALUES('Daily',1,190);
+UPDATE tarifas SET valor_del_cobro=200;
+--(DisparadoresNoOK)
+INSERT INTO pago VALUES(1,TIMESTAMP '2010-10-12 10:20:50',12555,'SO 025 AS');
+DELETE FROM pago;
+UPDATE pago SET valor=254;
+
+INSERT INTO tarifas VALUES('Daily',10,150);
+UPDATE tarifas SET valor_del_cobro=25;
+INSERT INTO tarifas VALUES('Daily',10,10);
+UPDATE tarifas SET valor_del_cobro=30;
+INSERT INTO tarifas VALUES('Daily',1,10);
+UPDATE tarifas SET valor_del_cobro=22;
+--Disparadores No OK
+INSERT INTO pago VALUES(1,TIMESTAMP '2007-02-22 01:01:01',12000,'SO 022 AS');
+DELETE FROM pago;
+UPDATE pago SET valor=193;
+INSERT INTO pago VALUES(1,TIMESTAMP '2008-03-23 01:01:01',12001,'SO 022 AS');
+DELETE FROM pago;
+UPDATE pago SET valor=113;
+INSERT INTO pago VALUES(1,TIMESTAMP '2009-03-23 01:01:01',12001,'SO 022 AS');
+DELETE FROM pago;
+UPDATE pago SET valor=123;
+--************
+--************
+--#Despoblar la base de datos (XPoblar)
+DELETE FROM camera;
+
+DELETE FROM image;
+
+DELETE FROM KEEPER;
+
+DELETE FROM PERMIT;
+
+DELETE FROM VEHICLE;
+--#Eliminar toda la información de la base de datos (XTablas) 
+--Adicionando acciones de referencia ACCION OK borrarla y que se permita ya que
+--ya que es refencia de otras
+--ACCION OK
+DROP TABLE permit CASCADE CONSTRAINTS;
+
+DROP TABLE image CASCADE CONSTRAINTS;
+
+DROP TABLE camera CASCADE CONSTRAINTS;
+--Adicionando acciones de referencia ACCION OK borrarla y que se permita ya que
+--ya que es refencia de otras
+--ACCION OK
+DROP TABLE vehicle CASCADE CONSTRAINTS;
+
+DROP TABLE keeper CASCADE CONSTRAINTS;
+
+DROP TABLE tarifas CASCADE CONSTRAINTS;
+
+DROP TABLE pagos CASCADE CONSTRAINTS;
+--************
+--************

@@ -1,0 +1,12 @@
+DELETE FROM propiedadDe;
+DELETE FROM punto;
+DELETE FROM carrera;
+DELETE FROM miembro;
+DELETE FROM persona;
+DELETE FROM empresa;
+DELETE FROM ciclista;
+DELETE FROM version;
+DELETE FROM segmento;
+DELETE FROM esOrganizador;
+DELETE FROM participa;
+DELETE FROM registro;

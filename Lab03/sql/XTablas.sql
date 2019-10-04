@@ -1,0 +1,12 @@
+DROP TABLE propiedadDe;
+DROP TABLE punto;
+DROP TABLE carrera;
+DROP TABLE miembro;
+DROP TABLE persona;
+DROP TABLE empresa;
+DROP TABLE ciclista;
+DROP TABLE version;
+DROP TABLE segmento;
+DROP TABLE esOrganizador;
+DROP TABLE participa;
+DROP TABLE registro;

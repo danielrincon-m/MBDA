@@ -1,0 +1,48 @@
+CONCEPTOS
+En vehicle
+id: debe ser una cadena con el siguiente formato: LL NNN LL. L es una letra mayúscula y N
+es un dígito.
+En camera
+id: debe ser un consecutivo
+perim : sólo puede ser IN OUT o NULL
+CASOS DE USO EXISTENTES
+Mantener vehiculo(Ad,El)
+Siempre es posible eliminar los vehiculos del sistema.
+-
+NUEVOS CASOS DE USO
+Mantener tarifas(Ad,Mo, El)
+COMO Administrador
+QUIERO mantener el valor de las diferentes tarifas
+PARA PODER tener control de los pagos
+Los datos de la tarifa son: tipo de cobro, número de dias, valor del cobro.
+El valor de cobro debe ser múltiplo de 50
+–
+Al modificar no se permite bajar el valor del cobro
+Registrar pago(Ad)
+COMO Ciudadano
+QUIERO registrar mis pagos
+PARA PODER tener mi permiso al dia
+Los datos del pago son: número, fecha, valor y permiso asociado
+--
+La adición del se debe realizar con datos mínimos. El número, la fecha y el valor del
+orden se deben generar automáticamente. No se puede crear un pago si no se ha establecido
+la tarifa ni se debe recibir más dinero que el se debe en un permiso.
+El pago no se puede modificar ni eliminar
+#A. Adicionando restricciones declarativas.
+#Para proteger la base de datos vamos a implementar las restricciones que se pueden
+#garantizar usando restricciones declarativas.
+#1. Definir las restricciones declarativas
+#2. Validar con casos significativos la protección de la base de datos, adicione
+#comentarios. (Subtitulo PoblandoOKFinal PoblandoNoOKFinal)
+--¿? Crear la base de datos sin restricciones (Tablas) 
+CREATE TABLE camera(id VARCHAR2(9) NOT NULL, perim VARCHAR2(3));
+CREATE TABLE vehicle(id VARCHAR2(10) NOT NULL, keeper NUMBER(11));
+CREATE TABLE permit(reg VARCHAR2(10) NOT NULL, sDate TIMESTAMP NOT NULL, chargeType VARCHAR2(10));
+CREATE TABLE image(camera NUMBER(11) NOT NULL, whn TIMESTAMP NOT NULL, reg VARCHAR2(10));
+CREATE TABLE keeper(id NUMBER(11) NOT NULL, name VARCHAR2(20) , address VARCHAR2(25));
+
+CREATE TRIGGER OR REPLACE trigger_id 
+BEFORE INSERT ON camera
+FOR EACH ROW
+begin{
+	CHECK( id like'[A-Z][A-Z] [0-9] [0-9] [0-9] [0-9] [A-Z][A-Z]')

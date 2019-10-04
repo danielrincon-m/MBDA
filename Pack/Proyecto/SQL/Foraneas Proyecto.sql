@@ -1,0 +1,72 @@
+-------------Foraneas
+ALTER TABLE casas
+ADD CONSTRAINT FK_CASAS_PAISES
+FOREIGN KEY (pais)
+REFERENCES paises(nombre);
+
+ALTER TABLE tiene_pres
+ADD CONSTRAINT FK_TIENE_PRES_PRESC
+FOREIGN KEY (presentacion, material)
+REFERENCES presentaciones(cantidad, material);
+
+ALTER TABLE tiene_pres
+ADD CONSTRAINT FK_TIENE_PRES_LIC
+FOREIGN KEY (licores_especifico)
+REFERENCES licores_especificos(nombre);
+
+ALTER TABLE licores_especificos
+ADD CONSTRAINT FK_LICORES_ESP_LICOR
+FOREIGN KEY (licor)
+REFERENCES licor(nombre);
+
+ALTER TABLE licor_anejo
+ADD CONSTRAINT FK_LICOR_ANEJO_LIC_ESP
+FOREIGN KEY (licor_especifico)
+REFERENCES licores_especificos(nombre);
+
+ALTER TABLE licor
+ADD CONSTRAINT FK_LICOR_PAIS
+FOREIGN KEY (pais)
+REFERENCES paises(nombre);
+
+ALTER TABLE en_base
+ADD CONSTRAINT FK_EN_BASE_LICOR
+FOREIGN KEY (licor)
+REFERENCES licor(nombre);
+
+ALTER TABLE contiene
+ADD CONSTRAINT FK_CONTIENE_LICOR
+FOREIGN KEY (licor)
+REFERENCES licor(nombre);
+
+ALTER TABLE esde
+ADD CONSTRAINT FK_ESDE_FACT_COMP
+FOREIGN KEY (factura_compra)
+REFERENCES factura_compra(num_fact);
+
+ALTER TABLE esde
+ADD CONSTRAINT FK_ESDE_LIC_ESP
+FOREIGN KEY (licor_especifico)
+REFERENCES licores_especificos(nombre);
+
+ALTER TABLE contiene
+ADD CONSTRAINT FK_CONTIENE_COCTEL
+FOREIGN KEY (coctel)
+REFERENCES coctel(nombre);
+
+ALTER TABLE ingredientes
+ADD CONSTRAINT FK_INGREDIENTES_COCTEL
+FOREIGN KEY (coctel)
+REFERENCES coctel(nombre);
+
+ALTER TABLE pasos
+ADD CONSTRAINT FK_PREPARACION_COCTEL
+FOREIGN KEY (coctel)
+REFERENCES coctel(nombre);
+
+ALTER TABLE licores_especificos
+ADD CONSTRAINT FK_LICORES_ESP_CASA
+FOREIGN KEY (casa)
+REFERENCES casas(num_casa);
+
+
