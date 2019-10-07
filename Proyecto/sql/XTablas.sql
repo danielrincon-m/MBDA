@@ -1,0 +1,9 @@
+DROP TABLE deseaAdquirir;
+DROP TABLE cliente;
+DROP TABLE promocion;
+DROP TABLE contiene;
+DROP TABLE ofrecidoPor;
+DROP TABLE producto;
+DROP TABLE donacion;
+DROP TABLE sucursal;
+DROP TABLE cadena;
