@@ -16,12 +16,12 @@ CHECK (
 ALTER TABLE producto
 ADD CONSTRAINT CHK_producto_precio
 CHECK (
-	precio >= 0;
+	precio >= 0
 );
 
 --La cantidad de productos donados debe ser mayor a cero
 ALTER TABLE contiene
 ADD CONSTRAINT CHK_contient_cantidad
 CHECK (
-	cantidad > 0;
+	cantidad > 0
 );
