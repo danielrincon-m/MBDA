@@ -2,5 +2,5 @@
 ALTER TABLE promocion 
 ADD CONSTRAINT CHK_promocion_fechas
 CHECK (
-	TO_DATE(fechaInicio) < TO_DATE(fechaFinal)
+	fechaInicio < fechaFinal
 );

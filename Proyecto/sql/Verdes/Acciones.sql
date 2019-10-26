@@ -41,3 +41,12 @@ ALTER TABLE deseaAdquirir
 ADD CONSTRAINT FK_deseaAdquirir_producto
 FOREIGN KEY (producto) REFERENCES producto (idProducto)
 ON DELETE CASCADE;
+
+ALTER TABLE promocion
+DROP CONSTRAINT FK_promocion_idProducto;
+
+ALTER TABLE promocion
+ADD CONSTRAINT FK_promocion_idProducto
+FOREIGN KEY (idProducto) REFERENCES producto (idProducto)
+ON DELETE SET NULL;
+

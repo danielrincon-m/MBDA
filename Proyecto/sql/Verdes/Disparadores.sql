@@ -41,13 +41,13 @@ BEGIN
 		idProducto = :NEW.idProducto;
 	
 	IF TO_DATE(:NEW.fechaFinal) > fechaV THEN
-		RAISE_APPLICATION_ERROR(-20006, 'La fecha final de promoción debe ser despues de la fecha de vencimiento del producto');
+		RAISE_APPLICATION_ERROR(-20006, 'La fecha final de promoción debe ser antes de la fecha de vencimiento del producto');
 	END IF;
 END;
 /
 
 --Dos promociones del mismo producto no se pueden traslapar en fechas
-CREATE OR REPLACE TRIGGER TR_pomo_fechas
+CREATE OR REPLACE TRIGGER TR_promo_fechas
 	BEFORE 
 	INSERT
 	ON promocion
