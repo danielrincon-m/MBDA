@@ -1,0 +1,24 @@
+<Detalle>
+    <Pagina url="" />
+    <OtrosNombres>
+        <Nombre nombre="" razon=""/>
+        <Nombre nombre="" razon=""/>
+    </OtrosNombres>
+    <Sellos>
+        <Sello nombre="" />
+    </Sellos>
+    <Discos>
+        <Disco nombre="" año=""/>
+    </Discos>
+    <Premios>
+        <Premio nombre="" año=""/>
+    </Premios>
+    <Universidades>
+        <Universidad nombre="" añoInicio="" añoFin="" titulo=""/>
+    </Universidades>
+    <Hijos>
+        <Hijo nombre="" sexo=""/>
+    </Hijos>
+</Detalle>
+
+<select extract (detalle,/detalle/otrosNombre/nombre/@nombre)
