@@ -1,0 +1,26 @@
+import json
+
+with open('MOCK_DATA.json') as file:
+    datos = json.load(file)
+    for dato in datos:
+        print('<Detalle>')
+        print('\t<Pagina url="' + str(dato["url"]) + '" />')
+        print('\t<OtrosNombres>')
+        print('\t\t<Nombre nombre="' + str(dato["nombre"]) + '" razon="' + str(dato["Razon"]) + '"/>')
+        print('\t</OtrosNombres>')
+        print('\t<Sellos>')
+        print('\t\t<Sello nombre="' + str(dato["sello"]) + '" />')
+        print('\t</Sellos>')
+        print('\t<Discos>')
+        print('\t\t<Disco nombre="' + str(dato["discoNombre"]) + '" anho="' + str(dato["discoAnho"]) + '"/>')
+        print('\t</Discos>')
+        print('\t<Premios>')
+        print('\t\t<Premio nombre="' + str(dato["premioNombre"]) + '" anho="' + str(dato["premioAnho"]) + '"/>')
+        print('\t</Premios>')
+        print('\t<Universidades>')
+        print('\t\t<Universidad nombre="' + str(dato["uNombre"]) + '" anhoInicio="' + str(dato["uAnhoInicio"]) + '" anhoFin="' + str(dato["uAnhoFin"]) + '" titulo="' + str(dato["uTitulo"]) + '"/>')
+        print('\t</Universidades>')
+        print('\t<Hijos>')
+        print('\t\t<Hijo nombre="' + str(dato["hijoNombre"]) + '" sexo="' + str(dato["hijoSexo"]) + '"/>')
+        print('\t</Hijos>')
+        print('</Detalle>')

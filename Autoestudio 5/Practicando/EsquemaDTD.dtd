@@ -1,0 +1,33 @@
+<!DOCTYPE Detalle [
+
+<!ELEMENT Detalle (Pagina,OtrosNombres?,Sellos?,Discos,Premios?,Universidades,Hijos?)> <!-- Todos los musicos deben tener pagina -->
+<!ELEMENT Pagina EMPTY>
+<!ELEMENT OtrosNombres (Nombre*)> <!-- Puede que no tenga otro nombre -->
+<!ELEMENT Nombre EMPTY>
+<!ELEMENT Sellos (Sello+)>
+<!ELEMENT Sello EMPTY>
+<!ELEMENT Discos (Disco,Disco+)> <!-- Deben tener minimo dos discos -->
+<!ELEMENT Disco EMPTY>
+<!ELEMENT Premios (Premio*)> <!-- Puede no haber ganado premios -->
+<!ELEMENT Premio EMPTY>
+<!ELEMENT Universidades (Universidad+)> <!-- Debe tener al menos una carrera universitaria -->
+<!ELEMENT Universidad EMPTY>
+<!ELEMENT Hijos (Hijo*)> <!-- Puede no tener hijos -->
+<!ELEMENT Hijo EMPTY>
+
+<!ATTLIST Pagina url CDATA #REQUIRED>
+<!ATTLIST Nombre nombre CDATA #REQUIRED>
+<!ATTLIST Nombre razon CDATA #REQUIRED>
+<!ATTLIST Sello nombre CDATA #REQUIRED>
+<!ATTLIST Disco nombre CDATA #REQUIRED>
+<!ATTLIST Disco anho CDATA #REQUIRED>
+<!ATTLIST Premio nombre CDATA #REQUIRED>
+<!ATTLIST Premio anho CDATA #REQUIRED>
+<!ATTLIST Universidad nombre CDATA #REQUIRED>
+<!ATTLIST Universidad anhoInicio CDATA #REQUIRED>
+<!ATTLIST Universidad anhoFin CDATA #IMPLIED> <!-- Puede no conocerse -->
+<!ATTLIST Universidad titulo CDATA #IMPLIED> <!-- Puede no conocerse -->
+<!ATTLIST Hijo nombre CDATA #REQUIRED>
+<!ATTLIST Hijo sexo CDATA #IMPLIED> <!-- Puede no conocerse -->
+
+]>

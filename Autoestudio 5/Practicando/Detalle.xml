@@ -2,23 +2,22 @@
     <Pagina url="" />
     <OtrosNombres>
         <Nombre nombre="" razon=""/>
-        <Nombre nombre="" razon=""/>
     </OtrosNombres>
     <Sellos>
         <Sello nombre="" />
     </Sellos>
     <Discos>
-        <Disco nombre="" año=""/>
+        <Disco nombre="" anho=""/>
     </Discos>
     <Premios>
-        <Premio nombre="" año=""/>
+        <Premio nombre="" anho=""/>
     </Premios>
     <Universidades>
-        <Universidad nombre="" añoInicio="" añoFin="" titulo=""/>
+        <Universidad nombre="" anhoInicio="" anhoFin="" titulo=""/>
     </Universidades>
     <Hijos>
         <Hijo nombre="" sexo=""/>
     </Hijos>
 </Detalle>
 
-<select extract (detalle,/detalle/otrosNombre/nombre/@nombre)
+<!--extract (detalle,/Detalle/OtrosNombres/Nombre/@nombre)-->
