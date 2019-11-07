@@ -9,16 +9,16 @@ FROM (
     SELECT m_name, EXTRACTVALUE(detail,'/Detalle/Sellos/Sello/@nombre') AS sello
     FROM musician
     )
-where sello = 'Torphy-Torp';
+WHERE sello = 'Torphy-Torp';
 
---3. Los musicos mas premiados en un año específico
+--3. Los musicos mas premiados en un aï¿½o especï¿½fico
 SELECT m_name, COUNT(m_name)
 FROM musician
 WHERE EXTRACTVALUE(detail,'/Detalle/Premios/Premio/@anho') = '2000'
 GROUP BY m_name
 ORDER BY COUNT(m_name);
 
---4. Los discos de un año dado
+--4. Los discos de un aï¿½o dado
 SELECT m_name AS Artista, EXTRACTVALUE(detail,'/Detalle/Discos/Disco/@nombre') AS Disco
 FROM musician
 WHERE EXTRACTVALUE(detail,'/Detalle/Discos/Disco/@anho') = '2004';
@@ -27,9 +27,64 @@ WHERE EXTRACTVALUE(detail,'/Detalle/Discos/Disco/@anho') = '2004';
 SELECT *
 FROM (
     SELECT 
-        COUNT(m_no) AS nMusicos, 
-        EXTRACTVALUE(detail,'/Detalle/Universidades/Universidad/@nombre') AS Universidad
+        EXTRACTVALUE(detail,'/Detalle/Universidades/Universidad/@nombre') AS Universidad,
+        COUNT(m_no) AS nMusicos
         FROM musician
         GROUP BY EXTRACTVALUE(detail,'/Detalle/Universidades/Universidad/@nombre')
     )
 ORDER BY nMusicos DESC, Universidad;
+
+--6. Los musicos con el mismo titulo
+SELECT *
+FROM (
+    SELECT 
+        EXTRACTVALUE(detail,'/Detalle/Universidades/Universidad/@titulo') AS titulo,
+        COUNT(m_no) AS nMusicos
+        FROM musician
+        GROUP BY EXTRACTVALUE(detail,'/Detalle/Universidades/Universidad/@titulo')
+    )
+ORDER BY nMusicos DESC, titulo;
+
+--7. La cantidad de mÃºsicos que tienen el mismo premio
+SELECT *
+FROM (
+    SELECT 
+        EXTRACTVALUE(detail,'/Detalle/Premios/Premio/@nombre') AS premio,
+        COUNT(m_no) AS nMusicos
+        FROM musician
+        GROUP BY EXTRACTVALUE(detail,'/Detalle/Premios/Premio/@nombre')
+    )
+ORDER BY nMusicos DESC, premio;
+
+--8. La cantidad de musicos con hijos de cada sexo
+SELECT *
+FROM (
+    SELECT 
+        EXTRACTVALUE(detail,'/Detalle/Hijos/Hijo/@sexo') AS sexo,
+        COUNT(m_no) AS nMusicos
+        FROM musician
+        GROUP BY EXTRACTVALUE(detail,'/Detalle/Hijos/Hijo/@sexo')
+    )
+ORDER BY nMusicos DESC, sexo;
+
+--9. La cantidad de premios dados por aÃ±o
+SELECT *
+FROM (
+    SELECT 
+        EXTRACTVALUE(detail,'/Detalle/Premios/Premio/@anho') AS premios,
+        COUNT(EXTRACTVALUE(detail,'/Detalle/Premios/Premio/@anho')) AS nPremios
+        FROM musician
+        GROUP BY EXTRACTVALUE(detail,'/Detalle/Premios/Premio/@anho')
+    )
+ORDER BY nPremios DESC, premios;
+
+--10. La cantidad de discos por aÃ±o
+SELECT *
+FROM (
+    SELECT 
+        EXTRACTVALUE(detail,'/Detalle/Discos/Disco/@anho') AS discos,
+        COUNT(EXTRACTVALUE(detail,'/Detalle/Discos/Disco/@anho')) AS nDiscos
+        FROM musician
+        GROUP BY EXTRACTVALUE(detail,'/Detalle/Discos/Disco/@anho')
+    )
+ORDER BY nDiscos DESC, discos;
