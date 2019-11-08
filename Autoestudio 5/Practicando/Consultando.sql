@@ -56,7 +56,7 @@ FROM (
     )
 ORDER BY nMusicos DESC, premio;
 
---8. La cantidad de musicos con hijos de cada sexo
+--8. La cantidad de hijos de musicos de cada sexo
 SELECT *
 FROM (
     SELECT 
