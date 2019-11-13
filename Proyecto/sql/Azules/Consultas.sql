@@ -66,3 +66,15 @@ WHERE cl.idCliente = 239
         AND prom.fechaFinal
 
 ORDER BY prod.nombre ASC;
+
+
+--Conocer los donantes
+SELECT 
+    nombre, 
+    COUNT(numDonacion)
+FROM donacion
+
+JOIN cadena ON donante = idCadena
+
+GROUP BY nombre
+ORDER BY COUNT(numDonacion);
