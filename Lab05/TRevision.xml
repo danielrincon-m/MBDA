@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+
+<TRevision>
+    <Secciones>
+        <Seccion Tipo="">
+            <KmInicial>.</KmInicial>
+            <KmFinal>.</KmFinal>
+            <VelocidadProm>.</VelocidadProm>
+            <VelocidadMin>.</VelocidadMin>
+            <VelocidadMax>.</VelocidadMax>
+            <PulsacionesProm>.</PulsacionesProm>
+            <PotenciaProm>.</PotenciaProm>
+        </Seccion>
+    </Secciones>
+</TRevision>
