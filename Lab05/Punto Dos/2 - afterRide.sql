@@ -70,7 +70,7 @@ CREATE TABLE registro(
     fecha TIMESTAMP NOT NULL,
     tiempo NUMBER(9) NOT NULL,
     posicion NUMBER(5) NOT NULL,
-    revision VARCHAR(60),
+    revision XMLTYPE,
     dificultad VARCHAR(1) NOT NULL,
     comentario VARCHAR(20),
     esSobre NUMBER(5) NOT NULL,
@@ -387,15 +387,12 @@ INSERT INTO carrera VALUES('2', 'Carrera3', 'COLOMBIA', 3, 'S');
 INSERT INTO punto VALUES(0, 0, 'Punto1', 'P', 15.2, 20, 0);
 INSERT INTO punto VALUES(1, 1, 'Punto2', 'L', 23.5, 20, 0);
 INSERT INTO punto VALUES(2, 0, 'Punto3', 'P', 15.2, 20, 1);
-INSERT INTO propiedadDe VALUES ('0', 1, 59.2);
-INSERT INTO propiedadDe VALUES ('1', 2, 99.5);
-INSERT INTO propiedadDe VALUES ('2', 3, 10);
 
 INSERT INTO miembro VALUES(1, 'CC', 1132487556, 'COLOMBIA', 'asd@gmail.com');
 INSERT INTO miembro VALUES(2, 'CC', 1132487557, 'COLOMBIA', 'asd1@gmail.com');
 INSERT INTO miembro VALUES(3, 'CC', 1132487558, 'COLOMBIA', 'asd2@gmail.com');
 INSERT INTO miembro VALUES(4, 'CC', 1132487558, 'COLOMBIA', 'asd2@gmail.com');
-INSERT INTO persona VALUES(1, 'Andres Muñoz');
+INSERT INTO persona VALUES(1, 'Andres Muï¿½oz');
 INSERT INTO persona VALUES(2, 'Mariaza Garzon');
 INSERT INTO persona VALUES(3, 'Mariaza Garzon');
 INSERT INTO persona VALUES(4, 'Mariaza Garzon');
@@ -406,12 +403,10 @@ INSERT INTO ciclista VALUES(4, TO_DATE('1990/09/27', 'yyyy/mm/dd'), 1);
 INSERT INTO ciclista VALUES(3, TO_DATE('1990/09/27', 'yyyy/mm/dd'), 1);
 INSERT INTO ciclista VALUES(1, TO_DATE('1991/09/28', 'yyyy/mm/dd'), 2);
 INSERT INTO ciclista VALUES(2, TO_DATE('1985/05/10', 'yyyy/mm/dd'), 3);
+INSERT INTO propiedadDe VALUES ('0', 1, 59.2);
+INSERT INTO propiedadDe VALUES ('1', 2, 99.5);
+INSERT INTO propiedadDe VALUES ('2', 3, 10);
 
-INSERT INTO participa VALUES(1, 2);
-INSERT INTO participa VALUES(1, 1);
-INSERT INTO participa VALUES(2, 2);
-INSERT INTO participa VALUES(2, 3);
-INSERT INTO participa VALUES(3, 3);
 INSERT INTO esOrganizador VALUES(3, 1);
 INSERT INTO esOrganizador VALUES(2, 1);
 INSERT INTO esOrganizador VALUES(3, 2);
@@ -422,10 +417,177 @@ INSERT INTO version VALUES(4, 'TDF4', TO_DATE('2019/11/27', 'yyyy/mm/dd'), '1');
 INSERT INTO segmento VALUES('seg1', 'C', 3, 0, 1);
 INSERT INTO segmento VALUES('seg2', 'C', 1, 0, 2);
 INSERT INTO segmento VALUES('seg3', 'C', 2, 1, 2);
+INSERT INTO participa VALUES(1, 2);
+INSERT INTO participa VALUES(1, 1);
+INSERT INTO participa VALUES(2, 2);
+INSERT INTO participa VALUES(2, 3);
+INSERT INTO participa VALUES(3, 3);
 
-INSERT INTO registro VALUES(3, TO_DATE('10-09-2014','DD-MM-YYYY'), 50, 10, '', 'M', '', 2, 'seg1');
-INSERT INTO registro VALUES(1, TO_DATE('10-09-2014','DD-MM-YYYY'), 100, 1, '', 'M', '', 1, 'seg2');
-INSERT INTO registro VALUES(2, TO_DATE('10-09-2014','DD-MM-YYYY'), 200, 5, '', 'M', '', 1, 'seg3');
+INSERT INTO registro VALUES(3, TO_DATE('10-09-2014','DD-MM-YYYY'), 50, 10, '
+<!DOCTYPE TRevision [
+<!ELEMENT TRevision (Secciones)>
+<!ELEMENT Secciones (Seccion)+>
+<!ELEMENT Seccion (KmInicial, KmFinal, VelocidadProm, VelocidadMin, VelocidadMax, PulsacionesProm, PotenciaProm)>
+<!ELEMENT KmInicial (#PCDATA)>
+<!ELEMENT KmFinal (#PCDATA)>
+<!ELEMENT VelocidadProm (#PCDATA)>
+<!ELEMENT VelocidadMin (#PCDATA)>
+<!ELEMENT VelocidadMax (#PCDATA)>
+<!ELEMENT PulsacionesProm (#PCDATA)>
+<!ELEMENT PotenciaProm (#PCDATA)>
+
+<!ATTLIST Seccion Tipo (Dura|Facil|Descenso) "Dura">
+]>
+<TRevision>
+    <Secciones>
+        <Seccion Tipo="Dura">
+            <KmInicial>25</KmInicial>
+            <KmFinal>40</KmFinal>
+            <VelocidadProm>28</VelocidadProm>
+            <VelocidadMin>5</VelocidadMin>
+            <VelocidadMax>40</VelocidadMax>
+            <PulsacionesProm>97</PulsacionesProm>
+            <PotenciaProm>45</PotenciaProm>
+        </Seccion>
+    </Secciones>
+</TRevision>
+', 'M', '', 2, 'seg1');
+INSERT INTO registro VALUES(1, TO_DATE('10-09-2014','DD-MM-YYYY'), 100, 1, '
+<!DOCTYPE TRevision [
+<!ELEMENT TRevision (Secciones)>
+<!ELEMENT Secciones (Seccion)+>
+<!ELEMENT Seccion (KmInicial, KmFinal, VelocidadProm, VelocidadMin, VelocidadMax, PulsacionesProm, PotenciaProm)>
+<!ELEMENT KmInicial (#PCDATA)>
+<!ELEMENT KmFinal (#PCDATA)>
+<!ELEMENT VelocidadProm (#PCDATA)>
+<!ELEMENT VelocidadMin (#PCDATA)>
+<!ELEMENT VelocidadMax (#PCDATA)>
+<!ELEMENT PulsacionesProm (#PCDATA)>
+<!ELEMENT PotenciaProm (#PCDATA)>
+
+<!ATTLIST Seccion Tipo (Dura|Facil|Descenso) "Dura">
+]>
+<TRevision>
+    <Secciones>
+        <Seccion Tipo="Facil">
+            <KmInicial>1</KmInicial>
+            <KmFinal>140</KmFinal>
+            <VelocidadProm>37</VelocidadProm>
+            <VelocidadMin>15</VelocidadMin>
+            <VelocidadMax>54</VelocidadMax>
+            <PulsacionesProm>88</PulsacionesProm>
+            <PotenciaProm>30</PotenciaProm>
+        </Seccion>
+    </Secciones>
+</TRevision>
+', 'M', '', 1, 'seg2');
+INSERT INTO registro VALUES(2, TO_DATE('10-09-2014','DD-MM-YYYY'), 200, 5, '
+<!DOCTYPE TRevision [
+<!ELEMENT TRevision (Secciones)>
+<!ELEMENT Secciones (Seccion)+>
+<!ELEMENT Seccion (KmInicial, KmFinal, VelocidadProm, VelocidadMin, VelocidadMax, PulsacionesProm, PotenciaProm)>
+<!ELEMENT KmInicial (#PCDATA)>
+<!ELEMENT KmFinal (#PCDATA)>
+<!ELEMENT VelocidadProm (#PCDATA)>
+<!ELEMENT VelocidadMin (#PCDATA)>
+<!ELEMENT VelocidadMax (#PCDATA)>
+<!ELEMENT PulsacionesProm (#PCDATA)>
+<!ELEMENT PotenciaProm (#PCDATA)>
+
+<!ATTLIST Seccion Tipo (Dura|Facil|Descenso) "Dura">
+]>
+<TRevision>
+    <Secciones>
+        <Seccion Tipo="Descenso">
+            <KmInicial>143</KmInicial>
+            <KmFinal>145</KmFinal>
+            <VelocidadProm>48</VelocidadProm>
+            <VelocidadMin>27</VelocidadMin>
+            <VelocidadMax>80</VelocidadMax>
+            <PulsacionesProm>73</PulsacionesProm>
+            <PotenciaProm>21</PotenciaProm>
+        </Seccion>
+    </Secciones>
+</TRevision>
+', 'M', '', 1, 'seg3');
+
+---------------------------------------------------------------------------------------------------------------------------
+--CICLO 1: PoblarNoOK
+--Insertar un numero incorrecto de atributos
+INSERT INTO miembro VALUES(1);
+--Insertar un tipo de datos invÃ¡lido
+INSERT INTO empresa VALUES(5, NULL, NULL);
+--Insertar un atributo NULL en un campo que no lo permite
+INSERT INTO ciclista VALUES(0, TO_DATE('1990/09/27', 'yyyy/mm/dd'), NULL);
+INSERT INTO version VALUES(0, 'TDF', NULL, '0');
+INSERT INTO persona VALUES(0, NULL);
+--Insertar una llave primaria repetida
+INSERT INTO miembro VALUES(1, 'CC', 1032487557, 'COLOMBIA', 'asd1@gmail.com');
+INSERT INTO miembro VALUES(1, 'CC', 1032487558, 'COLOMBIA', 'asd2@gmail.com'); --PK_miembro
+--Insertar un valor que no apunte a algun valor de otra tabla requerida
+INSERT INTO persona VALUES(10, 'Andres Garzon'); --FK_id_persona
+--Violar una restricion de atributos
+INSERT INTO miembro VALUES(1, 'CD', 1032487557, 'COLOMBIA', 'asd1@gmail.com'); --CHK_idt_miembro
+INSERT INTO punto VALUES(0, 0, 'Punto1', 'R', 15.2, 20, 0); --CHK_tipo_punto
+--El tipo de la seccion no concuerda con las opciones
+INSERT INTO registro VALUES(3, TO_DATE('10-09-2014','DD-MM-YYYY'), 200, 5, '
+<!DOCTYPE TRevision [
+<!ELEMENT TRevision (Secciones)>
+<!ELEMENT Secciones (Seccion)+>
+<!ELEMENT Seccion (KmInicial, KmFinal, VelocidadProm, VelocidadMin, VelocidadMax, PulsacionesProm, PotenciaProm)>
+<!ELEMENT KmInicial (#PCDATA)>
+<!ELEMENT KmFinal (#PCDATA)>
+<!ELEMENT VelocidadProm (#PCDATA)>
+<!ELEMENT VelocidadMin (#PCDATA)>
+<!ELEMENT VelocidadMax (#PCDATA)>
+<!ELEMENT PulsacionesProm (#PCDATA)>
+<!ELEMENT PotenciaProm (#PCDATA)>
+
+<!ATTLIST Seccion Tipo (Dura|Facil|Descenso) "Dura">
+]>
+<TRevision>
+    <Secciones>
+        <Seccion Tipo="Ascenso">
+            <KmInicial>143</KmInicial>
+            <KmFinal>145</KmFinal>
+            <VelocidadProm>48</VelocidadProm>
+            <VelocidadMin>27</VelocidadMin>
+            <VelocidadMax>80</VelocidadMax>
+            <PulsacionesProm>73</PulsacionesProm>
+            <PotenciaProm>21</PotenciaProm>
+        </Seccion>
+    </Secciones>
+</TRevision>
+', 'M', '', 1, 'seg3');
+--Falta un elemento de la seccion (VelocidadProm)
+INSERT INTO registro VALUES(4, TO_DATE('10-09-2014','DD-MM-YYYY'), 100, 1, '
+<!DOCTYPE TRevision [
+<!ELEMENT TRevision (Secciones)>
+<!ELEMENT Secciones (Seccion)+>
+<!ELEMENT Seccion (KmInicial, KmFinal, VelocidadProm, VelocidadMin, VelocidadMax, PulsacionesProm, PotenciaProm)>
+<!ELEMENT KmInicial (#PCDATA)>
+<!ELEMENT KmFinal (#PCDATA)>
+<!ELEMENT VelocidadProm (#PCDATA)>
+<!ELEMENT VelocidadMin (#PCDATA)>
+<!ELEMENT VelocidadMax (#PCDATA)>
+<!ELEMENT PulsacionesProm (#PCDATA)>
+<!ELEMENT PotenciaProm (#PCDATA)>
+
+<!ATTLIST Seccion Tipo (Dura|Facil|Descenso) "Dura">
+]>
+<TRevision>
+    <Secciones>
+        <Seccion Tipo="Facil">
+            <KmInicial>1</KmInicial>
+            <KmFinal>140</KmFinal>
+            <VelocidadMin>15</VelocidadMin>
+            <VelocidadMax>54</VelocidadMax>
+            <PulsacionesProm>88</PulsacionesProm>
+            <PotenciaProm>30</PotenciaProm>
+        </Seccion>
+    </Secciones>
+</TRevision>
+', 'M', '', 1, 'seg2');
 
 ---------------------------------------------------------------------------------------------------------------------------
 --CICLO 1: XTablas
@@ -476,7 +638,7 @@ DELETE FROM registro;
 
 --Tuplas----------------------------------------------------------------------------------------------------------------
 
---Un cilista solo puede tener un único registro en un segmento
+--Un cilista solo puede tener un ï¿½nico registro en un segmento
 ALTER TABLE registro
 ADD CONSTRAINT UK_reg_esSobre_esPara
 UNIQUE (esSobre, esPara);
@@ -502,7 +664,7 @@ INSERT INTO registro VALUES(4, TO_DATE('10-09-2014','DD-MM-YYYY'), 100, 10, '', 
 
 --Disparadores----------------------------------------------------------------------------------------------------------------
 
---El numero y la fecha se asignan automáticamente
+--El numero y la fecha se asignan automï¿½ticamente
 CREATE OR REPLACE TRIGGER TR_reg_date_number
 BEFORE 
 INSERT
@@ -566,10 +728,10 @@ BEGIN
         
     EXCEPTION
         WHEN NO_DATA_FOUND THEN
-            RAISE_APPLICATION_ERROR(-20001, 'El ciclista no participó en la versión de la carrera a la cual pertenece el segmento');
+            RAISE_APPLICATION_ERROR(-20001, 'El ciclista no participï¿½ en la versiï¿½n de la carrera a la cual pertenece el segmento');
 END;
 /
---Los datos a modificar son la revisión, las fotos y el comentario
+--Los datos a modificar son la revisiï¿½n, las fotos y el comentario
 CREATE OR REPLACE TRIGGER TR_reg_modificar
 BEFORE 
 UPDATE
@@ -599,14 +761,14 @@ BEGIN
     RAISE_APPLICATION_ERROR(-20002, 'No se puede modificar alguno de los valores');
 END;
 /
---Sólo es posible eliminar un registro si no ha pasado mas de un dia desde que se creo.
+--Sï¿½lo es posible eliminar un registro si no ha pasado mas de un dia desde que se creo.
 CREATE OR REPLACE TRIGGER TR_reg_eliminar
 BEFORE DELETE
 ON registro
 FOR EACH ROW
 BEGIN
     IF SYSDATE - :OLD.fecha > 1 THEN
-        RAISE_APPLICATION_ERROR(-20003, 'No se puede eliminar un registro de más de un día.');
+        RAISE_APPLICATION_ERROR(-20003, 'No se puede eliminar un registro de mï¿½s de un dï¿½a.');
     END IF;
 END;
 /
@@ -650,7 +812,7 @@ CHECK (
 
 --Tuplas----------------------------------------------------------------------------------------------------------------
 
---La velocidad máxima en cicla es de 100 km/hora.
+--La velocidad mï¿½xima en cicla es de 100 km/hora.
 ALTER TABLE punto
 ADD CONSTRAINT CHK_punto_velocidad
 CHECK (
@@ -673,7 +835,7 @@ INSERT INTO punto VALUES(2, 0, 'Punto4', 'L', 30, 2, 1); -- La velocidad maxima 
 
 --Disparadores----------------------------------------------------------------------------------------------------------------
 
---El ordern (por carrera) se debe generar automáticamente
+--El ordern (por carrera) se debe generar automï¿½ticamente
 CREATE OR REPLACE TRIGGER TR_punto_orden_auto
 BEFORE INSERT
 ON punto
@@ -757,7 +919,7 @@ BEGIN
     END IF;
 END;
 /
---Si no se conoce la duración máxima se asume una velocidad de 60 km/hora
+--Si no se conoce la duraciï¿½n mï¿½xima se asume una velocidad de 60 km/hora
 CREATE OR REPLACE TRIGGER TR_punto_tiempoLimite
 BEFORE INSERT
 ON punto
@@ -855,7 +1017,7 @@ INSERT INTO segmento VALUES('seg3', 'C', 2, 0, 0); -- No se puede iniciar y term
 
 --Disparadores----------------------------------------------------------------------------------------------------------------
 
---Si no se especifica un nombre de la version será de tipo: nombreCarrera_id
+--Si no se especifica un nombre de la version serï¿½ de tipo: nombreCarrera_id
 CREATE OR REPLACE TRIGGER TR_version_nombre
 BEFORE INSERT
 ON version

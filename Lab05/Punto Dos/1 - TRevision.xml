@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--...............................DTD......................................-->
+<!DOCTYPE TRevision [
+<!ELEMENT TRevision (Secciones)>
+<!ELEMENT Secciones (Seccion)+>
+<!ELEMENT Seccion (KmInicial, KmFinal, VelocidadProm, VelocidadMin, VelocidadMax, PulsacionesProm, PotenciaProm)>
+<!ELEMENT KmInicial (#PCDATA)>
+<!ELEMENT KmFinal (#PCDATA)>
+<!ELEMENT VelocidadProm (#PCDATA)>
+<!ELEMENT VelocidadMin (#PCDATA)>
+<!ELEMENT VelocidadMax (#PCDATA)>
+<!ELEMENT PulsacionesProm (#PCDATA)>
+<!ELEMENT PotenciaProm (#PCDATA)>
+
+<!ATTLIST Seccion Tipo (Dura|Facil|Descenso) "Dura">
+]>
+
+<!--...............................Estructura...............................-->
+<!-- 
+<TRevision>
+    <Secciones>
+        <Seccion Tipo="">
+            <KmInicial>.</KmInicial>
+            <KmFinal>.</KmFinal>
+            <VelocidadProm>.</VelocidadProm>
+            <VelocidadMin>.</VelocidadMin>
+            <VelocidadMax>.</VelocidadMax>
+            <PulsacionesProm>.</PulsacionesProm>
+            <PotenciaProm>.</PotenciaProm>
+        </Seccion>
+    </Secciones>
+</TRevision>
+ -->
+
+<!--...............................XML OK...............................-->
+<!-- 
+<TRevision>
+    <Secciones>
+        <Seccion Tipo="Dura">
+            <KmInicial>25</KmInicial>
+            <KmFinal>40</KmFinal>
+            <VelocidadProm>28</VelocidadProm>
+            <VelocidadMin>5</VelocidadMin>
+            <VelocidadMax>40</VelocidadMax>
+            <PulsacionesProm>97</PulsacionesProm>
+            <PotenciaProm>45</PotenciaProm>
+        </Seccion>
+    </Secciones>
+</TRevision>
+ -->
+
+<!--...............................XML No OK...............................-->
+
+<!--El tipo de la seccion no concuerda con las opciones-->
+<!--
+<TRevision>
+    <Secciones>
+        <Seccion Tipo="Ascenso">
+            <KmInicial>25</KmInicial>
+            <KmFinal>40</KmFinal>
+            <VelocidadProm>28</VelocidadProm>
+            <VelocidadMin>5</VelocidadMin>
+            <VelocidadMax>40</VelocidadMax>
+            <PulsacionesProm>97</PulsacionesProm>
+            <PotenciaProm>45</PotenciaProm>
+        </Seccion>
+    </Secciones>
+</TRevision>
+-->
+
+<!--Falta un elemento de la seccion -->
+<!--
+<TRevision>
+    <Secciones>
+        <Seccion Tipo="Dura">
+            <KmInicial>25</KmInicial>
+            <KmFinal>40</KmFinal>
+            <VelocidadProm>28</VelocidadProm>
+            <VelocidadMin>5</VelocidadMin>
+            <VelocidadMax>40</VelocidadMax>
+            <PotenciaProm>45</PotenciaProm>
+        </Seccion>
+    </Secciones>
+</TRevision>
+-->
+
+<!--Sobra un elemento en la seccion -->
+<!--
+<TRevision>
+    <Secciones>
+        <Seccion Tipo="Dura">
+            <KmInicial>25</KmInicial>
+            <KmFinal>40</KmFinal>
+            <VelocidadProm>28</VelocidadProm>
+            <VelocidadMin>5</VelocidadMin>
+            <VelocidadMax>40</VelocidadMax>
+            <PulsacionesProm>97</PulsacionesProm>
+            <PulsacionesProm>132</PulsacionesProm>
+            <PotenciaProm>45</PotenciaProm>
+        </Seccion>
+    </Secciones>
+</TRevision>
+-->

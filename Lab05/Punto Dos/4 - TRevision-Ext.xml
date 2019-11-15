@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--...............................DTD......................................-->
+<!DOCTYPE TRevision [
+<!ELEMENT TRevision (Secciones)>
+<!ELEMENT Secciones (Seccion)+>
+<!ELEMENT Seccion (KmInicial, KmFinal, VelocidadProm, VelocidadMin, VelocidadMax, PulsacionesProm, PotenciaProm, AlturaProm, InclinacionMax, InclinacionMin, Clima)>
+<!ELEMENT KmInicial (#PCDATA)>
+<!ELEMENT KmFinal (#PCDATA)>
+<!ELEMENT VelocidadProm (#PCDATA)>
+<!ELEMENT VelocidadMin (#PCDATA)>
+<!ELEMENT VelocidadMax (#PCDATA)>
+<!ELEMENT PulsacionesProm (#PCDATA)>
+<!ELEMENT PotenciaProm (#PCDATA)>
+<!ELEMENT AlturaProm (#PCDATA)>
+<!ELEMENT InclinacionMax (#PCDATA)>
+<!ELEMENT InclinacionMin (#PCDATA)>
+<!ELEMENT Clima (#PCDATA)>
+
+<!ATTLIST Seccion Tipo (Dura|Facil|Descenso) "Dura">
+]>
+
+<!--...............................Estructura...............................-->
+
+<TRevision>
+    <Secciones>
+        <Seccion Tipo="">
+            <KmInicial>.</KmInicial>
+            <KmFinal>.</KmFinal>
+            <VelocidadProm>.</VelocidadProm>
+            <VelocidadMin>.</VelocidadMin>
+            <VelocidadMax>.</VelocidadMax>
+            <PulsacionesProm>.</PulsacionesProm>
+            <PotenciaProm>.</PotenciaProm>
+            <AlturaProm>.</AlturaProm>
+            <InclinacionMax>.</InclinacionMax>
+            <InclinacionMin>.</InclinacionMin>
+            <Clima>.</Clima>
+        </Seccion>
+    </Secciones>
+</TRevision>
+
