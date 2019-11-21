@@ -1,0 +1,10 @@
+ALTER TABLE musician ADD CONSTRAINT PK_musician PRIMARY KEY(m_no);
+ALTER TABLE band ADD  CONSTRAINT  PK_band  PRIMARY KEY(band_no);
+ALTER TABLE composer ADD CONSTRAINT PK_composer PRIMARY KEY(comp_no);
+ALTER TABLE composition ADD CONSTRAINT PK_composition PRIMARY KEY(c_no);
+ALTER TABLE concert ADD CONSTRAINT PK_concert PRIMARY KEY(concert_no);
+ALTER TABLE performances ADD CONSTRAINT PK_performances PRIMARY KEY(pfrmnc_no);
+ALTER TABLE performer ADD CONSTRAINT PK_performer PRIMARY KEY(perf_no);
+ALTER TABLE place ADD CONSTRAINT PK_place PRIMARY KEY(place_no);
+ALTER TABLE has_composed ADD  CONSTRAINT PK_has_composed PRIMARY KEY(cmpn_no,cmpr_no);
+ALTER TABLE plays_in ADD CONSTRAINT  PK_plays_in PRIMARY KEY(player,band_id);

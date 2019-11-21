@@ -1,0 +1,6 @@
+DROP TRIGGER myTrigger;
+DROP TRIGGER living_TG;
+DROP TRIGGER myT;
+DROP TRIGGER myTT;
+DROP TRIGGER delete_mno;
+DROP TRIGGER update_musician;

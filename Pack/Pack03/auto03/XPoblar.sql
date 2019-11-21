@@ -1,0 +1,7 @@
+
+DELETE FROM Extra;
+DELETE FROM Booking;
+DELETE FROM Guest;
+DELETE FROM Room;
+DELETE FROM Rate;
+DELETE FROM Room_type;
