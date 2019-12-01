@@ -64,15 +64,15 @@ INSERT INTO empresa
     WHERE
         razon IS NOT NULL;
 
---No funciona debido a que las fechas en la tabla de origen no tienen un fromato predefinido
 INSERT INTO ciclista
-    SELECT id, TO_DATE(nacimiento), categoria
+    SELECT id, TO_DATE(nacimiento, 'YYYY-MM-DD'), categoria
     FROM 
         miembro JOIN MBDA.miembros
         ON (idn = numero)
     WHERE
         nacimiento IS NOT NULL
-        AND categoria IS NOT NULL;
+        AND categoria IS NOT NULL
+        AND nacimiento LIKE('____-__-__');
         
         
 ---------------------------Modelo Físico. Componentes.------------------------------        
