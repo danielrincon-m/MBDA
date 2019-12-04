@@ -31,13 +31,13 @@ CREATE TABLE promocion (
   idProducto INTEGER,
   fechaInicio DATE NOT NULL,
   fechaFinal DATE NOT NULL,
-  descuento NUMBER(3, 2) NOT NULL
+  descuento NUMBER NOT NULL
 );
 CREATE TABLE cliente (
   idCliente INTEGER,
-  tipoDocumento VARCHAR(2),
-  nDocumento INTEGER,
-  nombre VARCHAR(50)
+  tipoDocumento VARCHAR(2) NOT NULL,
+  nDocumento INTEGER NOT NULL,
+  nombre VARCHAR(50) NOT NULL
 );
 CREATE TABLE deseaAdquirir (
   cliente INTEGER,

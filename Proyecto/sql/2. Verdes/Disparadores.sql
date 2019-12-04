@@ -40,7 +40,7 @@ BEGIN
 	WHERE
 		idProducto = :NEW.idProducto;
 	
-	IF TO_DATE(:NEW.fechaFinal) > fechaV THEN
+	IF TO_DATE(:NEW.fechaFinal) > TO_DATE(fechaV) THEN
 		RAISE_APPLICATION_ERROR(-20006, 'La fecha final de promoción debe ser antes de la fecha de vencimiento del producto');
 	END IF;
 END;

@@ -1,0 +1,138 @@
+CREATE OR REPLACE PACKAGE BODY PA_ADMIN_DONACIONES IS
+
+    PROCEDURE AD_DONACION(xdonante IN INTEGER) IS
+    BEGIN
+        PC_DONACIONES.AD_DONACION(xdonante);
+    END;
+
+    PROCEDURE AD_CONTIENE(xdonacion IN INTEGER, xproducto IN INTEGER, xcantidad IN INTEGER) IS
+    BEGIN
+        PC_DONACIONES.AD_CONTIENE(xdonacion, xproducto, xcantidad);
+    END;
+
+END PA_ADMIN_DONACIONES;
+/
+
+CREATE OR REPLACE PACKAGE BODY PA_ADMIN_SUCURSALES IS
+
+    PROCEDURE AD_CADENA(xnombre IN VARCHAR) IS
+    BEGIN
+        PC_SUCURSAL.AD_CADENA(xnombre);
+    END;
+
+    PROCEDURE MO_CADENA(xidCadena IN INTEGER, xnombre IN VARCHAR) IS
+    BEGIN
+        PC_SUCURSAL.MO_CADENA(xidCadena, xnombre);
+    END;
+
+    PROCEDURE AD_SUCURSAL(xcadena IN INTEGER, xlocalidad IN VARCHAR, xbarrio IN VARCHAR, xdireccion IN VARCHAR) IS
+    BEGIN
+        PC_SUCURSAL.AD_SUCURSAL(xcadena, xlocalidad, xbarrio, xdireccion);
+    END;
+
+    PROCEDURE MO_SUCURSAL(xidSucursal IN INTEGER, xlocalidad IN VARCHAR, xbarrio IN VARCHAR, xdireccion IN VARCHAR) IS
+    BEGIN
+        PC_SUCURSAL.MO_SUCURSAL(xidSucursal, xlocalidad, xbarrio, xdireccion);
+    END;
+
+    PROCEDURE EL_SUCURSAL(xidSucursal IN INTEGER) IS
+    BEGIN
+        PC_SUCURSAL.EL_SUCURSAL(xidSucursal);
+    END;
+
+END PA_ADMIN_SUCURSALES;
+/
+
+CREATE OR REPLACE PACKAGE BODY PA_ORG_PRODUCTOS IS
+
+    PROCEDURE AD_PRODUCTO(xfabricante IN VARCHAR, xnombre IN VARCHAR, xprecio IN NUMBER, xfechaVencimiento IN DATE) IS
+    BEGIN
+        PC_PRODUCTO.AD_PRODUCTO(xfabricante, xnombre, xprecio, xfechaVencimiento);
+    END;
+
+    PROCEDURE MO_PRODUCTO(xidProducto IN INTEGER, xprecio IN NUMBER) IS
+    BEGIN
+        PC_PRODUCTO.MO_PRODUCTO(xidProducto, xprecio);
+    END;
+
+    PROCEDURE EL_PRODUCTO(xidProducto IN INTEGER) IS
+    BEGIN
+        PC_PRODUCTO.EL_PRODUCTO(xidProducto);
+    END;
+
+    PROCEDURE AD_PROMOCION(xidProducto  IN  INTEGER, xfInicio IN VARCHAR, xfFinal IN VARCHAR, xdescuento IN NUMBER) IS
+    BEGIN
+        PC_PRODUCTO.AD_PROMOCION(xidProducto, xfInicio, xfFinal, xdescuento);
+    END;
+
+    PROCEDURE MO_PROMOCION(xidPromocion IN INTEGER, xfFinal IN DATE) IS
+    BEGIN
+        PC_PRODUCTO.MO_PROMOCION(xidPromocion, xfFinal);
+    END;
+
+END PA_ORG_PRODUCTOS;
+/
+
+CREATE OR REPLACE PACKAGE BODY PA_ADMIN_SISTEMA IS
+
+    PROCEDURE AD_CLIENTE(xtipoDocumento IN VARCHAR, xnDocumento IN INTEGER, xnombre IN VARCHAR) IS
+    BEGIN
+        PC_CLIENTE.AD_CLIENTE(xtipoDocumento, xnDocumento, xnombre);
+    END;
+
+    PROCEDURE MO_CLIENTE(xidCliente  IN  INTEGER, xtipoDocumento IN VARCHAR, xnDocumento IN INTEGER, xnombre IN VARCHAR) IS
+    BEGIN
+        PC_CLIENTE.MO_CLIENTE(xidCliente, xtipoDocumento, xnDocumento, xnombre);
+    END;
+
+    PROCEDURE EL_CLIENTE(xidCliente IN INTEGER) IS
+    BEGIN
+        PC_CLIENTE.EL_CLIENTE(xidCliente);
+    END;
+
+    PROCEDURE AD_DESEO(xcliente  IN  INTEGER, xproducto  IN  INTEGER) IS
+    BEGIN
+        PC_CLIENTE.AD_DESEO(xcliente, xproducto);
+    END;
+
+    PROCEDURE EL_DESEO(xcliente IN INTEGER, xproducto IN INTEGER) IS
+    BEGIN
+        PC_CLIENTE.EL_DESEO(xcliente, xproducto);
+    END;
+
+END PA_ADMIN_SISTEMA;
+/
+
+CREATE OR REPLACE PACKAGE BODY PA_CLIENTE IS
+
+    FUNCTION CO_SUCURSALES RETURN SYS_REFCURSOR IS CO_SUCU SYS_REFCURSOR;
+    BEGIN
+        CO_SUCU := PC_SUCURSAL.CO_SUCURSALES;
+        RETURN CO_SUCU;
+    END;
+
+    FUNCTION CO_PROMOCIONES RETURN SYS_REFCURSOR IS CO_PROMO SYS_REFCURSOR;
+    BEGIN
+        CO_PROMO := PC_PRODUCTO.CO_PROMOCIONES;
+        RETURN CO_PROMO;
+    END;
+
+    FUNCTION CO_LISTADESEOS(xidCliente IN INTEGER) RETURN SYS_REFCURSOR IS CO_LIDE SYS_REFCURSOR;
+    BEGIN
+        CO_LIDE := PC_CLIENTE.CO_LISTADESEOS(xidCliente);
+        RETURN CO_LIDE;
+    END;
+
+END PA_CLIENTE;
+/
+
+CREATE OR REPLACE PACKAGE BODY PA_BANCO_ALIMENTOS IS
+
+    FUNCTION CO_DONANTES RETURN SYS_REFCURSOR IS CO_DONA SYS_REFCURSOR;
+    BEGIN
+        CO_DONA := PC_DONACIONES.CO_DONANTES;
+        RETURN CO_DONA;
+    END;
+
+END PA_BANCO_ALIMENTOS;
+/

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--Ejemplo de XML que iría en Donaciones-->
+
+<!DOCTYPE Detalle [
+<!ELEMENT Detalle (Entidades, Problemas)>
+<!ELEMENT Entidades (Entidad+)>
+<!ELEMENT Entidad (Valor_neto_Donacion, Causas_Apoyadas)>
+<!ELEMENT Valor_neto_Donacion (#PCDATA)>
+<!ELEMENT Causas_Apoyadas (Causa, Cantidad_Aportada)+>
+<!ELEMENT Causa (#PCDATA)>
+<!ELEMENT Cantidad_Aportada (#PCDATA)>
+<!ELEMENT Problemas (Problema)+>
+<!ELEMENT Problema (Cantidad_Afectada, Problema_Presentado)>
+<!ELEMENT Cantidad_Afectada (#PCDATA)>
+<!ELEMENT Problema_Presentado (#PCDATA)>
+
+<!ATTLIST Entidad nombre CDATA #REQUIRED>
+<!ATTLIST Entidad nit CDATA #REQUIRED>
+]>
+
+<Detalle>
+    <Entidades>
+        <Entidad nombre="Ent1" nit="1000310-34">
+            <Valor_neto_Donacion>35485479</Valor_neto_Donacion>
+            <Causas_Apoyadas>
+                <Causa>ICBF</Causa>
+                <Cantidad_Aportada>10000</Cantidad_Aportada>
+
+                <Causa>Cruz Roja</Causa>
+                <Cantidad_Aportada>15000</Cantidad_Aportada>
+            </Causas_Apoyadas>
+        </Entidad>
+        <Entidad nombre="Ent2" nit="1000310-36">
+            <Valor_neto_Donacion>47981479</Valor_neto_Donacion>
+            <Causas_Apoyadas>
+                <Causa>Hospital Infantil</Causa>
+                <Cantidad_Aportada>3500</Cantidad_Aportada>
+
+                <Causa>Damnificados Terremoto</Causa>
+                <Cantidad_Aportada>9640</Cantidad_Aportada>
+            </Causas_Apoyadas>
+        </Entidad>
+    </Entidades>
+    <Problemas>
+        <Problema>
+            <Cantidad_Afectada>300</Cantidad_Afectada>
+            <Problema_Presentado>La comida se puso en mal estado</Problema_Presentado>
+        </Problema>
+        <Problema>
+            <Cantidad_Afectada>1200</Cantidad_Afectada>
+            <Problema_Presentado>La comida fue robada</Problema_Presentado>
+        </Problema>
+    </Problemas>
+</Detalle>

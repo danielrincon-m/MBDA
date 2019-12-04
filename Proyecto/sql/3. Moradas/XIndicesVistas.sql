@@ -6,5 +6,6 @@ DROP VIEW VproveedorEficiente;
 
 DROP INDEX Ipromo;
 DROP INDEX Isucursal;
-DROP INDEX Icadena;
 DROP INDEX Iproducto;
+DROP INDEX IDonante;
+DROP INDEX IDonacion;
