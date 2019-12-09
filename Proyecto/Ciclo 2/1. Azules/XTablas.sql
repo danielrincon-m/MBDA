@@ -1,0 +1,9 @@
+DROP TABLE EmpresasDeEnvios;
+DROP TABLE PertenecenA;
+DROP TABLE Ciudades;
+DROP TABLE OperanEn;
+DROP TABLE Repartidores;
+DROP TABLE Contienen;
+DROP TABLE Telefonos;
+DROP TABLE Paquetes;
+DROP TABLE Compras;
