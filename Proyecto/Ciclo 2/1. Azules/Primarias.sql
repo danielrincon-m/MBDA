@@ -1,4 +1,4 @@
-ALTER TABLE EmmpresasDeEnvios
+ALTER TABLE EmpresasDeEnvios
 ADD CONSTRAINT PK_Empresas_Envios
 PRIMARY KEY (idEmpresa);
 

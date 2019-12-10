@@ -10,8 +10,8 @@ ALTER TABLE OperanEn
 ADD CONSTRAINT FK_OperanEn_Ciudades
 FOREIGN KEY (ciudad) REFERENCES Ciudades (idCiudad);
 
-ALTER TABLE OperaEn
-ADD CONSTRAINT FK_OperaEn_Repartidor
+ALTER TABLE OperanEn
+ADD CONSTRAINT FK_OperanEn_Repartidor
 FOREIGN KEY (repartidor) REFERENCES Repartidores (idrepartidor);
 
 ALTER TABLE Contienen

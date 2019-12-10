@@ -1,7 +1,7 @@
 CREATE TABLE EmpresasDeEnvios (
     idEmpresa INTEGER NOT NULL,
     nombreEmpresa VARCHAR(50) NOT NULL,
-    nit: VARCHAR(20)
+    nit VARCHAR(20)
 );
 
 CREATE TABLE PertenecenA (
@@ -22,7 +22,7 @@ CREATE TABLE OperanEn (
 CREATE TABLE Repartidores (
     idRepartidor INTEGER NOT NULL,
     tipoDocumento VARCHAR(2) NOT NULL,
-    numDocumento INTEGERM NOT NULL,
+    numDocumento INTEGER NOT NULL,
     nombre VARCHAR(50) NOT NULL
 );
 
@@ -50,5 +50,6 @@ CREATE TABLE Paquetes (
 CREATE TABLE Compras (
     idCompra INTEGER NOT NULL,
     valor NUMBER NOT NULL,
-    cliente INTEGER NOT NULL
+    cliente INTEGER NOT NULL,
+    fecha DATE NOT NULL
 );

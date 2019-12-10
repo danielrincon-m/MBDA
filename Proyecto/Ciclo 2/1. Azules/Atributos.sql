@@ -1,3 +1,10 @@
+--tipo documento correcto
+ALTER TABLE Repartidor
+ADD CONSTRAINT CHK_repartidor_tDoc
+CHECK (
+    tipoDocumento IN ('CC', 'TI', 'CE')
+);
+
 --El NIT debe contener un guión
 ALTER TABLE EmpresasDeEnvios
 ADD CONSTRAINT CHK_Empresa_nit
@@ -10,7 +17,7 @@ ALTER TABLE Telefonos
 ADD CONSTRAINT CHK_Telefonos_tel
 CHECK (
     LENGTH(telefono) >= 7
-):
+);
 
 --El peso, largo, ancho y alto de un paquete deben ser mayores a cero
 ALTER TABLE Paquetes
