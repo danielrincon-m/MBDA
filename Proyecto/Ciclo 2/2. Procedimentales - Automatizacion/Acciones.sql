@@ -22,10 +22,10 @@ ADD CONSTRAINT FK_Pertenecen_Repartidores
 FOREIGN KEY (repartidor) REFERENCES Repartidores (idRepartidor)
 ON DELETE CASCADE;
 
-ALTER TABLE OperaEn
-DROP CONSTRAINT FK_OperaEn_Repartidor;
-ALTER TABLE OperaEn
-ADD CONSTRAINT FK_OperaEn_Repartidor
+ALTER TABLE OperanEn
+DROP CONSTRAINT FK_OperanEn_Repartidor;
+ALTER TABLE OperanEn
+ADD CONSTRAINT FK_OperanEn_Repartidor
 FOREIGN KEY (repartidor) REFERENCES Repartidores (idrepartidor)
 ON DELETE CASCADE;
 

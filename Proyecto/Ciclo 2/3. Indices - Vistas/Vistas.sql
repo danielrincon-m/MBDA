@@ -11,11 +11,11 @@ CREATE OR REPLACE VIEW VCiudades AS
 CREATE OR REPLACE VIEW VEmpresas AS
     SELECT
         nombreEmpresa,
-        r.nombre,
+        r.nombre AS nombreRepartidor,
         r.tipoDocumento,
         r.numDocumento,
         t.telefono,
-        c.nombre
+        c.nombre AS nombreCiudad
     FROM EmpresasDeEnvios
 
     JOIN PertenecenA p
@@ -35,32 +35,13 @@ CREATE OR REPLACE VIEW VEmpresas AS
 
     ORDER BY nombreEmpresa;
 
---Se pueden consultar las compras de un cliente, y los paquetes relacionados a la misma
-CREATE OR REPLACE VIEW VCompras AS
-    SELECT
-        idCompra,
-        valor,
-        idPaquete,
-        peso,
-        largo,
-        ancho,
-        estado,
-        producto
-    FROM Compras
-
-    JOIN Paquetes
-    ON idCompra = compra
-
-    JOIN Contienen
-    ON idPaquete = paquete;
-
-
 
 --Consultas Operativas
 
 --consultar los repartidores de una empresa de envíos
 CREATE OR REPLACE VIEW VRepartidores AS
     SELECT
+        idEmpresa,
         nombreEmpresa,
         tipoDocumento,
         numDocumento,
@@ -81,6 +62,7 @@ CREATE OR REPLACE VIEW VRepartidores AS
 --Conocer las entregas realizadas por un repartidor
 CREATE OR REPLACE VIEW VEntregas AS
     SELECT
+        idRepartidor,
         numDocumento,
         nombre,
         idPaquete,
@@ -102,21 +84,23 @@ CREATE OR REPLACE VIEW VEntregas AS
 --Consultar los teléfonos de un repartidor
 CREATE OR REPLACE VIEW VTelefonos AS
     SELECT
+        idRepartidor,
         nombre,
         telefono
     FROM Repartidores
 
     JOIN Telefonos
-    ON idRepartidor = repartidor
+    ON idRepartidor = repartidor;
 
     -- WHERE idRepartidor = 1;
 
 
---Consultar las ciudades y los repartidores que operan en ellas
+--Consultar los repartidores que operan en una ciudad
 CREATE OR REPLACE VIEW VCiudadesRepartidores AS
     SELECT 
-        c.nombre,
-        r.nombre
+        c.idCiudad,
+        c.nombre AS nombreCiudad,
+        r.nombre AS nombreRepartidor
     FROM Ciudades c
 
     JOIN OperanEn
@@ -125,18 +109,23 @@ CREATE OR REPLACE VIEW VCiudadesRepartidores AS
     JOIN Repartidores r
     ON repartidor = idRepartidor
 
+    --WHERE idCiudad = 1
+
     ORDER BY c.nombre, r.nombre;
 
 
---Consultar los paquetes relacionados a una compra y que producto contienen
+--Se pueden consultar las compras de un cliente, y los paquetes relacionados a la misma, y quien los reparte
 CREATE OR REPLACE VIEW VPaquetes AS
     SELECT
         nombre,
-        producto,
+        idCompra,
+        valor,
+        idPaquete,
         peso,
         largo,
         ancho,
         alto,
+        producto,
         estado
 
     FROM Compras

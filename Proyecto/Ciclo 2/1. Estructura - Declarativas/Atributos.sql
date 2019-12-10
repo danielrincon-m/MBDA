@@ -1,5 +1,5 @@
 --tipo documento correcto
-ALTER TABLE Repartidor
+ALTER TABLE Repartidores
 ADD CONSTRAINT CHK_repartidor_tDoc
 CHECK (
     tipoDocumento IN ('CC', 'TI', 'CE')

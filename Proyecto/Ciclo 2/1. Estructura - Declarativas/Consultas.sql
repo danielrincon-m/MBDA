@@ -33,30 +33,13 @@ ON o.ciudad = c.idCiudad
 
 ORDER BY nombreEmpresa;
 
---Se pueden consultar las compras de un cliente, y los paquetes relacionados a la misma
-SELECT
-    idCompra,
-    valor,
-    idPaquete,
-    peso,
-    largo,
-    ancho,
-    estado,
-    producto
-FROM Compras
-
-JOIN Paquetes
-ON idCompra = compra
-
-JOIN Contienen
-ON idPaquete = paquete;
-
 
 
 --Consultas Operativas
 
 --consultar los repartidores de una empresa de envíos
 SELECT
+    idEmpresa,
     nombreEmpresa,
     tipoDocumento,
     numDocumento,
@@ -75,6 +58,7 @@ ORDER BY nombre;
 
 --Conocer las entregas realizadas por un repartidor
 SELECT
+    idRepartidor,
     numDocumento,
     nombre,
     idPaquete,
@@ -95,6 +79,7 @@ ORDER BY idPaquete;
 
 --Consultar los teléfonos de un repartidor
 SELECT
+    idRepartidor,
     nombre,
     telefono
 FROM Repartidores
@@ -105,8 +90,9 @@ ON idRepartidor = repartidor
 WHERE idRepartidor = 1;
 
 
---Consultar las ciudades y los repartidores que operan en ellas
-SELECT 
+--Consultar los repartidores que operan en una ciudad
+SELECT
+    c.idCiudad,
     c.nombre,
     r.nombre
 FROM Ciudades c
@@ -117,17 +103,22 @@ ON c.idCiudad = ciudad
 JOIN Repartidores r
 ON repartidor = idRepartidor
 
+WHERE idCiudad = 1
+
 ORDER BY c.nombre, r.nombre;
 
 
---Consultar los paquetes relacionados a una compra y que producto contienen
+--Se pueden consultar las compras de un cliente, y los paquetes relacionados a la misma, y quien los reparte
 SELECT
     nombre,
-    producto,
+    idCompra,
+    valor,
+    idPaquete,
     peso,
     largo,
     ancho,
     alto,
+    producto,
     estado
 
 FROM Compras
@@ -141,6 +132,6 @@ ON idPaquete = paquete
 JOIN Repartidores
 ON repartidor = idRepartidor
 
-WHERE idCompra = 1
+-- WHERE idCompra = 1
 
 ORDER BY estado;
