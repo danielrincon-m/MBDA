@@ -55,7 +55,7 @@ ON idPaquete = paquete;
 
 --Consultas Operativas
 
---consultar las empresas de envíos y sus repartidores
+--consultar los repartidores de una empresa de envíos
 SELECT
     nombreEmpresa,
     tipoDocumento,
@@ -69,8 +69,9 @@ ON idEmpresa = empresa
 JOIN Repartidores
 ON repartidor = idRepartidor
 
-ORDER BY nombreEmpresa, nombre;
+WHERE idEmpresa = 1
 
+ORDER BY nombre;
 
 --Conocer las entregas realizadas por un repartidor
 SELECT
