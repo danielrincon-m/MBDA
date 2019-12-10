@@ -16,7 +16,7 @@ START WITH 1;
 
 CREATE OR REPLACE TRIGGER TR_Empresa_id
     BEFORE
-    UPDATE
+    INSERT
     ON EmpresasDeEnvios
     FOR EACH ROW
 BEGIN
@@ -26,7 +26,7 @@ END;
 
 CREATE OR REPLACE TRIGGER TR_Ciudades_id
     BEFORE
-    UPDATE
+    INSERT
     ON Ciudades
     FOR EACH ROW
 BEGIN
@@ -36,7 +36,7 @@ END;
 
 CREATE OR REPLACE TRIGGER TR_Repartidores_id
     BEFORE
-    UPDATE
+    INSERT
     ON Repartidores
     FOR EACH ROW
 BEGIN
@@ -46,7 +46,7 @@ END;
 
 CREATE OR REPLACE TRIGGER TR_Paquetes_id
     BEFORE
-    UPDATE
+    INSERT
     ON Paquetes
     FOR EACH ROW
 BEGIN
@@ -56,7 +56,7 @@ END;
 
 CREATE OR REPLACE TRIGGER TR_Compras_id
     BEFORE
-    UPDATE
+    INSERT
     ON Compras
     FOR EACH ROW
 BEGIN
