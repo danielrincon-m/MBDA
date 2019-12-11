@@ -150,21 +150,6 @@ CREATE OR REPLACE PACKAGE BODY PA_CLIENTE IS
     BEGIN
         PC_COMPRAS.AD_COMPRA(xvalor, xcliente);
     END;
-
-    PROCEDURE AD_PAQUETE(xpeso IN NUMBER, xlargo IN NUMBER, xancho IN NUMBER, xalto IN NUMBER, xrepartidor IN INTEGER, xcompra IN INTEGER, xestado IN VARCHAR) IS
-    BEGIN
-        PC_COMPRAS.AD_PAQUETE(xpeso, xlargo, xancho, xalto, xrepartidor, xcompra, xestado);
-    END;
-    
-    PROCEDURE MO_PAQUETE(xidPaquete IN INTEGER, xestado IN VARCHAR) IS
-    BEGIN
-        PC_COMPRAS.MO_PAQUETE(xidPaquete, xestado);
-    END;
-    
-    PROCEDURE AD_CONTIENE(xpaquete IN INTEGER, xproducto IN INTEGER) IS
-    BEGIN
-        PC_COMPRAS.AD_CONTIENE(xpaquete, xproducto);
-    END;
     
 
     FUNCTION CO_COMPRAS(xidCompra IN INTEGER) RETURN SYS_REFCURSOR IS CO_CO SYS_REFCURSOR;
